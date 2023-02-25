@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Events</h1>
+    {% if events_list %}
+        {% for event in events_list %}
+            <div>
+                <h2>{{ event.event_title }}</h2>
+                <p>{{ event.pub_date }}</p>
+                <p>{{ event.description }}</p>
+                <a href="{% url 'events:full_event' event.id %}">View event</a>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No events found.</p>
+    {% endif %}
+{% endblock %}

@@ -6,23 +6,23 @@ from django import forms
 import uuid
 
 class Event(models.Model):
-    event_text = models.CharField(max_length=200)
+    event_title = models.CharField(max_length=200)
     organizer = models.ForeignKey(User, on_delete=models.CASCADE, limit_choices_to={'is_staff': True}, related_name='organizer')
-    pub_date = models.DateTimeField('date added')
-    start_date = models.DateField(default=timezone.now())
-    start_time = models.TimeField(default=timezone.now())
-    end_date = models.DateField(default=(timezone.now() + timezone.timedelta(1)))
-    end_time = models.TimeField(default=(timezone.now() + timezone.timedelta(1)))
+    pub_date = models.DateTimeField('date added', default=timezone.now())
+    start_date = models.DateField()
+    start_time = models.TimeField()
+    end_date = models.DateField()
+    end_time = models.TimeField()
     points = models.IntegerField(default=0)
     description = models.TextField(blank=True)
     image = models.ImageField(upload_to='event_images/', null=True)
-    interested = models.ForeignKey(User, on_delete=models.CASCADE, related_name='interested')
-    participants = models.ForeignKey(User, on_delete=models.CASCADE, related_name='participants')
+    interested = models.ManyToManyField(User, blank=True, related_name='interested')
+    participants = models.ManyToManyField(User, blank=True, related_name='participants')
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     visibility = models.BooleanField(default=False)
     
     def __str__(self):
-        return self.event_text
+        return self.event_title
     def was_published_recently(self):
         return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
     #def clean(self):
