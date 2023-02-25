@@ -15,12 +15,3 @@ def register(request):
             userForm.save()
             return redirect('/')
     return render(request, 'home/register.html', {'form': userForm})
-
-
-# display login page
-def login(request):
-    return render(request, 'home/login.html')
-
-# display logout page
-def logout(request):
-    return render(request, 'home/logout.html')
