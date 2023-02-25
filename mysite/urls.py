@@ -21,4 +21,5 @@ urlpatterns = [
     path('', include('django.contrib.auth.urls')),
     path('events/', include('events.urls')),
     path('admin/', admin.site.urls),
+    path('leaderboard/', include('leaderboard.urls')),
 ]
