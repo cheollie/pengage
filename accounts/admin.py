@@ -8,15 +8,18 @@ from .models import CustomUser
 class CustomUserAdmin(UserAdmin):
     list_display = (
         'username', 'email', 'first_name', 'last_name', 'is_staff',
-        'grade'
+        'grade', 'points'
     )
 
     fieldsets = (
         (None, {
             'fields': ('username', 'password')
         }),
-        ('Personal info', {
+        ('Personal Info', {
             'fields': ('first_name', 'last_name', 'email', 'grade')
+        }),
+        ('Points and Events', {
+            'fields': ('points', 'events_interested')
         }),
         ('Permissions', {
             'fields': (
@@ -24,7 +27,7 @@ class CustomUserAdmin(UserAdmin):
                 'groups', 'user_permissions'
                 )
         }),
-        ('Important dates', {
+        ('Important Dates', {
             'fields': ('last_login', 'date_joined')
         })
     )
@@ -33,8 +36,11 @@ class CustomUserAdmin(UserAdmin):
         (None, {
             'fields': ('username', 'password1', 'password2')
         }),
-        ('Personal info', {
+        ('Personal Info', {
             'fields': ('first_name', 'last_name', 'email', 'grade')
+        }),
+        ('Points and Events', {
+            'fields': ('points', 'events_interested')
         }),
         ('Permissions', {
             'fields': (
@@ -42,7 +48,7 @@ class CustomUserAdmin(UserAdmin):
                 'groups', 'user_permissions'
                 )
         }),
-        ('Important dates', {
+        ('Important Dates', {
             'fields': ('last_login', 'date_joined')
         })
     )

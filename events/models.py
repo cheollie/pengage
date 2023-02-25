@@ -16,7 +16,7 @@ class Event(models.Model):
     end_time = models.TimeField()
     points = models.IntegerField(default=0)
     description = models.TextField(blank=True)
-    image = models.ImageField(upload_to='event_images/', null=True)
+    image = models.ImageField(upload_to='event_images/', null=True, blank=True)
     interested = models.ManyToManyField(User, blank=True, related_name='interested')
     participants = models.ManyToManyField(User, blank=True, related_name='participants')
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
