@@ -6,6 +6,12 @@ User = get_user_model()
 from django import forms
 import uuid
 
+class Tag(models.Model):
+    tag = models.CharField(max_length=100)
+    colour = models.CharField(max_length=100)
+    def __str__(self):
+        return self.tag
+
 class Event(models.Model):
     event_title = models.CharField(max_length=200)
     organizer = models.ForeignKey(User, on_delete=models.CASCADE, limit_choices_to={'is_staff': True}, related_name='organizer')
@@ -21,6 +27,7 @@ class Event(models.Model):
     interested = models.ManyToManyField(User, blank=True, related_name='interested')
     participants = models.ManyToManyField(User, blank=True, related_name='participants')
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
+    tags = models.ManyToManyField(Tag, blank=True)
     visibility = models.BooleanField(default=False)
     
     def __str__(self):
@@ -39,13 +46,7 @@ class Event(models.Model):
             if end_time < start_time:
                 raise forms.ValidationError("End time should be greater than start time.")
         return {'start_date': start_date, 'end_date': end_date, 'start_time': start_time, 'end_time': end_time}
-
-class Tag(models.Model):
-    tag = models.CharField(max_length=100)
-    # colour = models.CharField(max_length=100)
-    event = models.ForeignKey(Event, on_delete=models.CASCADE)
-    def __str__(self):
-        return self.tag
+    
 
 """
 # not checked / temp rn
@@ -67,7 +68,7 @@ class Prize(models.Model):
     coins_required = models.IntegerField(default=0)
     description = models.TextField(blank=True)
     date_received = models.DateField(default=timezone.now())
-    image = models.ImageField(upload_to='static/img/prize_images/', null=True)
+    image = models.ImageField(upload_to='static/img/prize_images/', null=True, blank=True)
     can_be_redeemed = models.BooleanField(default=False)
     visibility = models.BooleanField(default=False)
     # pub_date = models.DateTimeField('date added')

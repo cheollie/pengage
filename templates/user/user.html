@@ -4,11 +4,40 @@
 
 {% block content %}
     <h1>User</h1>
+
+    {% if is_self %} 
+        <a href="/profile/update/">Edit</a>
+    {% endif %}
+
     <div>
         <div>{{user.username}}</div>
         <div>{{user.first_name}}</div>
         <div>{{user.last_name}}</div>
-        <div>{{user.grade}}</div>
-        <div>{{user.points}}</div>
+        <div>Grade:  {{user.grade}}</div>
+        <div>Points: {{user.points}}</div>
+        <div>
+            Interested Tags: 
+            {% for tag in user.tags_interested.all %}
+                <span>{{tag}}</span>
+            {% endfor %}
+        </div>
+        <div>
+            Events Interested:
+            {% for event in user.events_interested.all %}
+                <span>{{event}}</span>
+            {% endfor %}
+        </div>
+        <div>
+            Events Participated:
+            {% for event in user.events_participated.all %}
+                <span>{{event}}</span>
+            {% endfor %}
+        </div>
+        <div>
+            Prizes Redeemed:
+            {% for prize in user.prizes_redeemed.all %}
+                <span>{{prize}}</span>
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}

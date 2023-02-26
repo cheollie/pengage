@@ -16,10 +16,13 @@ class CustomUserAdmin(UserAdmin):
             'fields': ('username', 'password')
         }),
         ('Personal Info', {
-            'fields': ('first_name', 'last_name', 'email', 'grade')
+            'fields': ('first_name', 'last_name', 'email', 'grade', 'tags_interested')
         }),
-        ('Points, Events, and Prizes', {
-            'fields': ('points', 'events_interested', 'events_participated', 'tags_interested', 'prizes_redeemed')
+        ('Events', {
+            'fields': ('events_interested', 'events_participated')
+        }),
+        ('Points and Prizes', {
+            'fields': ('points', 'coins', 'prizes_redeemed')
         }),
         ('Permissions', {
             'fields': (
@@ -36,10 +39,13 @@ class CustomUserAdmin(UserAdmin):
             'fields': ('username', 'password1', 'password2')
         }),
         ('Personal Info', {
-            'fields': ('first_name', 'last_name', 'email', 'grade')
+            'fields': ('first_name', 'last_name', 'email', 'grade', 'tags_interested')
         }),
-        ('Points, Events, and Prizes', {
-            'fields': ('points', 'events_interested', 'events_participated', 'tags_interested', 'prizes_redeemed')
+        ('Events', {
+            'fields': ('events_interested', 'events_participated')
+        }),
+        ('Points and Prizes', {
+            'fields': ('points', 'coins', 'prizes_redeemed')
         }),
         ('Permissions', {
             'fields': (
