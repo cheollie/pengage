@@ -18,13 +18,12 @@ class CustomUserAdmin(UserAdmin):
         ('Personal Info', {
             'fields': ('first_name', 'last_name', 'email', 'grade')
         }),
-        ('Points and Events', {
-            'fields': ('points', 'events_interested')
+        ('Points, Events, and Prizes', {
+            'fields': ('points', 'events_interested', 'events_participated', 'tags_interested', 'prizes_redeemed')
         }),
         ('Permissions', {
             'fields': (
-                'is_active', 'is_staff', 'is_superuser',
-                'groups', 'user_permissions'
+                'is_active', 'is_staff', 'is_superuser'
                 )
         }),
         ('Important Dates', {
@@ -39,13 +38,12 @@ class CustomUserAdmin(UserAdmin):
         ('Personal Info', {
             'fields': ('first_name', 'last_name', 'email', 'grade')
         }),
-        ('Points and Events', {
-            'fields': ('points', 'events_interested')
+        ('Points, Events, and Prizes', {
+            'fields': ('points', 'events_interested', 'events_participated', 'tags_interested', 'prizes_redeemed')
         }),
         ('Permissions', {
             'fields': (
-                'is_active', 'is_staff', 'is_superuser',
-                'groups', 'user_permissions'
+                'is_active', 'is_staff', 'is_superuser'
                 )
         }),
         ('Important Dates', {
