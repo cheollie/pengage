@@ -47,6 +47,14 @@ class Tag(models.Model):
     def __str__(self):
         return self.tag
 
+
+class Tag(models.Model):
+    tag = models.CharField(max_length=100)
+    # colour = models.CharField(max_length=100)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.tag
+
 """
 # not checked / temp rn
 class Participation(models.Model):
