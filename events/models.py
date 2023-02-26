@@ -16,6 +16,7 @@ class Event(models.Model):
     end_time = models.TimeField()
     points = models.IntegerField(default=0)
     description = models.TextField(blank=True)
+    location = models.CharField(max_length=200, blank=True)
     image = models.ImageField(upload_to='event_images/', null=True, blank=True)
     interested = models.ManyToManyField(User, blank=True, related_name='interested')
     participants = models.ManyToManyField(User, blank=True, related_name='participants')
@@ -38,6 +39,14 @@ class Event(models.Model):
             if end_time < start_time:
                 raise forms.ValidationError("End time should be greater than start time.")
         return {'start_date': start_date, 'end_date': end_date, 'start_time': start_time, 'end_time': end_time}
+
+class Tag(models.Model):
+    tag = models.CharField(max_length=100)
+    # colour = models.CharField(max_length=100)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.tag
+
 """
 # not checked / temp rn
 class Participation(models.Model):
