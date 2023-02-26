@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Leaderboard{% endblock %}
+
+{% block content %}
+    <h1>Leaderboard</h1>
+    {% if users_list %}
+        {% for user in users_list %}
+            <div>
+                <div>{{user.username}}</div>
+                <div>{{user.points}}</div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No users found.</p>
+    {% endif %}
+{% endblock %}

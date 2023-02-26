@@ -3,10 +3,10 @@ from .models import Event
 from django.http import HttpResponse, Http404
 
 # display events
-def index(request):
+def events(request):
     events_list = Event.objects.order_by('-pub_date')
     content = {'events_list': events_list}
-    return render(request, 'events/index.html', content)
+    return render(request, 'events/events.html', content)
 
 # display event details
 def full_event(request, event_id):
