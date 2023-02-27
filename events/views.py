@@ -27,7 +27,15 @@ def full_event(request, event_id):
             request.user.events_interested.add(event)
             messages.success(request, "You are now interested in this event")
         return HttpResponseRedirect(request.path_info)
-    return render(request, 'events/full_event.html', {'event': event})
+    if request.user == event.organizer or request.user.is_staff or request.user.is_superuser:
+        manager = True
+    else:
+        manager = False
+    if request.user == event.organizer:
+        organizer = True
+    else:
+        organizer = False
+    return render(request, 'events/full_event.html', {'event': event, 'manager': manager, 'organizer': organizer})
 
 # admit users to event
 def admit(request, event_id):
