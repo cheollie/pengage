@@ -4,38 +4,70 @@
 {% block title %}User{% endblock %}
 
 {% block content %}
- 
+
 <div class="container body-content" style="">
     <div class="row" style="margin-top: 10%;  margin-bottom: 1%;">
         <h1 style="text-align: left; margin-bottom: 2%;">
-            <bold>user: {{ user.username }} ({{ user.first_name }} {{user.last_name }})</bold>
-            {{user.grade}}
+            {% if is_self %}
+            <a href="/profile/update/">Edit</a>
+            {% endif %}
+            <bold>user: {{ user.first_name }} {{ user.last_name }} ({{ user.username }}) [Grade {{user.grade}}]</bold>
+            {% if is_self %}
+            <p>{{user.email}} (only visible to you)</p>
+            {% endif %}
         </h1>
-            <hr>
+        <hr>
+        <div>Bio: {{user.bio}}</div>
+        <hr>
     </div>
+    {% if not user.is_public %}
     <div class="row" style="margin-bottom: 3%;">
         <div class="col-md-6">
             <h3>total points</h3>
-            <h3>total coins</h3>
+            {% if is_self %} <h3>total coins</h3> {% endif %}
         </div>
         <div class="col-md-6">
             <h3>{{user.points}}</h3>
-            <h3>{{user.points}}</h3> <!-- coins -->
-
+            {% if is_self %} <h3>{{user.coins}}</h3> {% endif %}
         </div>
     </div>
     <hr>
-
-    <img onclick="enlarge()" src="{% qr_url_from_text user.id size='S' %}" alt="{{user.username}}" id="img">
+    <div>
+        Interested Tags:
+        {% for tag in user.tags_interested.all %}
+        <span>{{tag}}</span>
+        {% endfor %}
+    </div>
+    <div>
+        Events Interested:
+        {% for event in user.events_interested.all %}
+        <span>{{event}}</span>
+        {% endfor %}
+    </div>
+    <div>
+        Events Participated:
+        {% for event in user.events_participated.all %}
+        <span>{{event}}</span>
+        {% endfor %}
+    </div>
+    <div>
+        Prizes Redeemed:
+        {% for prize in user.prizes_redeemed.all %}
+        <span>{{prize}}</span>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% if is_self %}
+    <img src="{% qr_url_from_text user.id size='S' %}" alt="{{user.username}}" id="img">
     <div id="myModal" class="modal">
 
         <!-- Modal Content (The Image) -->
         <img class="modal-content" id="img01">
-      
+
         <!-- Modal Caption (Image Text) -->
         <div id="caption" class="close">{{user.username}} (close)</div>
-      </div>
-    </form>
+    </div>
+    {% endif %}
 </div>
 
 <script>
@@ -46,87 +78,104 @@
     var img = document.getElementById("img");
     var modalImg = document.getElementById("img01");
     var captionText = document.getElementById("caption");
-    img.onclick = function(){
-    modal.style.display = "block";
-    modalImg.src = this.src;
+    img.onclick = function () {
+        modal.style.display = "block";
+        modalImg.src = this.src;
     }
 
     // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
 
     // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
-    modal.style.display = "none";
+    span.onclick = function () {
+        modal.style.display = "none";
     }
 </script>
 <style>
     /* Style the Image Used to Trigger the Modal */
-#myImg {
-  border-radius: 5px;
-  cursor: pointer;
-  transition: 0.3s;
-}
+    #myImg {
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
 
-#myImg:hover {opacity: 0.7;}
+    #myImg:hover {
+        opacity: 0.7;
+    }
 
-/* The Modal (background) */
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
-}
+    /* The Modal (background) */
+    .modal {
+        display: none;
+        /* Hidden by default */
+        position: fixed;
+        /* Stay in place */
+        z-index: 1;
+        /* Sit on top */
+        padding-top: 100px;
+        /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%;
+        /* Full width */
+        height: 100%;
+        /* Full height */
+        overflow: auto;
+        /* Enable scroll if needed */
+        background-color: rgb(0, 0, 0);
+        /* Fallback color */
+        background-color: rgba(0, 0, 0, 0.9);
+        /* Black w/ opacity */
+    }
 
-/* Modal Content (Image) */
-.modal-content {
-  margin: auto;
-  display: block;
-  width: 80%;
-  max-width: 700px;
-}
+    /* Modal Content (Image) */
+    .modal-content {
+        margin: auto;
+        display: block;
+        width: 80%;
+        max-width: 700px;
+    }
 
-/* Caption of Modal Image (Image Text) - Same Width as the Image */
-#caption {
-  margin: auto;
-  display: block;
-  width: 80%;
-  max-width: 700px;
-  text-align: center;
-  color: #ccc;
-  padding: 10px 0;
-  height: 150px;
-}
+    /* Caption of Modal Image (Image Text) - Same Width as the Image */
+    #caption {
+        margin: auto;
+        display: block;
+        width: 80%;
+        max-width: 700px;
+        text-align: center;
+        color: #ccc;
+        padding: 10px 0;
+        height: 150px;
+    }
 
-/* Add Animation - Zoom in the Modal */
-.modal-content, #caption {
-  animation-name: zoom;
-  animation-duration: 0.6s;
-}
+    /* Add Animation - Zoom in the Modal */
+    .modal-content,
+    #caption {
+        animation-name: zoom;
+        animation-duration: 0.6s;
+    }
 
-@keyframes zoom {
-  from {transform:scale(0)}
-  to {transform:scale(1)}
-}
+    @keyframes zoom {
+        from {
+            transform: scale(0)
+        }
 
-.close:hover,
-.close:focus {
-  color: #bbb;
-  text-decoration: none;
-  cursor: pointer;
-}
+        to {
+            transform: scale(1)
+        }
+    }
 
-/* 100% Image Width on Smaller Screens */
-@media only screen and (max-width: 700px){
-  .modal-content {
-    width: 100%;
-  }
-}
+    .close:hover,
+    .close:focus {
+        color: #bbb;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    /* 100% Image Width on Smaller Screens */
+    @media only screen and (max-width: 700px) {
+        .modal-content {
+            width: 100%;
+        }
+    }
 </style>
 {% endblock %}

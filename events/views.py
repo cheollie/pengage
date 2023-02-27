@@ -20,9 +20,11 @@ def full_event(request, event_id):
         print(request.user)
         if request.user in event.interested.all():
             event.interested.remove(request.user)
+            request.user.events_interested.remove(event)
             messages.info(request, "You are no longer interested in this event")
         else:
             event.interested.add(request.user)
+            request.user.events_interested.add(event)
             messages.success(request, "You are now interested in this event")
         return HttpResponseRedirect(request.path_info)
     return render(request, 'events/full_event.html', {'event': event})

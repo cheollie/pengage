@@ -13,18 +13,20 @@ class CustomUserAdmin(UserAdmin):
 
     fieldsets = (
         (None, {
-            'fields': ('username', 'password')
+            'fields': ('username', 'password', 'bio')
         }),
         ('Personal Info', {
-            'fields': ('first_name', 'last_name', 'email', 'grade')
+            'fields': ('first_name', 'last_name', 'email', 'grade', 'tags_interested')
         }),
-        ('Points and Events', {
-            'fields': ('points', 'events_interested')
+        ('Events', {
+            'fields': ('events_interested', 'events_participated')
+        }),
+        ('Points and Prizes', {
+            'fields': ('points', 'coins', 'prizes_redeemed')
         }),
         ('Permissions', {
             'fields': (
-                'is_active', 'is_staff', 'is_superuser',
-                'groups', 'user_permissions'
+                'is_active', 'is_staff', 'is_superuser'
                 )
         }),
         ('Important Dates', {
@@ -34,18 +36,20 @@ class CustomUserAdmin(UserAdmin):
 
     add_fieldsets = (
         (None, {
-            'fields': ('username', 'password1', 'password2')
+            'fields': ('username', 'password1', 'password2', 'bio')
         }),
         ('Personal Info', {
-            'fields': ('first_name', 'last_name', 'email', 'grade')
+            'fields': ('first_name', 'last_name', 'email', 'grade', 'tags_interested')
         }),
-        ('Points and Events', {
-            'fields': ('points', 'events_interested')
+        ('Events', {
+            'fields': ('events_interested', 'events_participated')
+        }),
+        ('Points and Prizes', {
+            'fields': ('points', 'coins', 'prizes_redeemed')
         }),
         ('Permissions', {
             'fields': (
-                'is_active', 'is_staff', 'is_superuser',
-                'groups', 'user_permissions'
+                'is_active', 'is_staff', 'is_superuser'
                 )
         }),
         ('Important Dates', {

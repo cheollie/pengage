@@ -6,6 +6,12 @@ User = get_user_model()
 from django import forms
 import uuid
 
+class Tag(models.Model):
+    tag = models.CharField(max_length=100)
+    colour = models.CharField(max_length=100)
+    def __str__(self):
+        return self.tag
+
 class Event(models.Model):
     event_title = models.CharField(max_length=200)
     organizer = models.ForeignKey(User, on_delete=models.CASCADE, limit_choices_to={'is_staff': True}, related_name='organizer')
@@ -21,6 +27,7 @@ class Event(models.Model):
     interested = models.ManyToManyField(User, blank=True, related_name='interested')
     participants = models.ManyToManyField(User, blank=True, related_name='participants')
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
+    tags = models.ManyToManyField(Tag, blank=True)
     visibility = models.BooleanField(default=False)
     
     def __str__(self):
@@ -39,13 +46,7 @@ class Event(models.Model):
             if end_time < start_time:
                 raise forms.ValidationError("End time should be greater than start time.")
         return {'start_date': start_date, 'end_date': end_date, 'start_time': start_time, 'end_time': end_time}
-
-class Tag(models.Model):
-    tag = models.CharField(max_length=100)
-    # colour = models.CharField(max_length=100)
-    event = models.ForeignKey(Event, on_delete=models.CASCADE)
-    def __str__(self):
-        return self.tag
+    
 
 """
 # not checked / temp rn
@@ -63,19 +64,21 @@ class Point(models.Model):
 """
 
 class Prize(models.Model):
-    prizes_text = models.CharField(max_length=100)
-    points_required = models.IntegerField()
+    prize_name = models.CharField(max_length=100)
+    coins_required = models.IntegerField(default=0)
     description = models.TextField(blank=True)
-    image = models.ImageField(upload_to='prize_images/', null=True) 
-    pub_date = models.DateTimeField('date added')
-    start_date = models.DateField(default=timezone.now())
-    start_time = models.TimeField(default=timezone.now())
-    end_date = models.DateField(default=(timezone.now() + timezone.timedelta(1)))
-    end_time = models.TimeField(default=(timezone.now() + timezone.timedelta(1)))
+    date_received = models.DateField(default=timezone.now())
+    image = models.ImageField(upload_to='static/img/prize_images/', null=True, blank=True)
+    can_be_redeemed = models.BooleanField(default=False)
     visibility = models.BooleanField(default=False)
+    # pub_date = models.DateTimeField('date added')
+    # start_date = models.DateField(default=timezone.now())
+    # start_time = models.TimeField(default=timezone.now())
+    # end_date = models.DateField(default=(timezone.now() + timezone.timedelta(1)))
+    # end_time = models.TimeField(default=(timezone.now() + timezone.timedelta(1)))
     def __str__(self):
-        return self.prizes_text
-    def was_published_recently(self):
+        return self.prize_name
+    #def was_published_recently(self):
         return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
     #def clean(self):
         cleaned_data = super().clean()
@@ -93,3 +96,4 @@ class Prize(models.Model):
     #   - on random draw
     #   - on most points (in range of dates) / top (x) etc
     #give prize to user (set winner[s])
+
