@@ -13,12 +13,24 @@
         <p>{{ event.pub_date }} | {{ event.organizer }}</p>
         <p>{{ event.start_date }} @ {{ event.start_time }} - {{ event.end_date }} @ {{ event.end_time }}</p>
         {% if user in event.interested.all %} <p>interested!</p> {% endif %}
-        {% if user in event.participants.all %} <p>participant!</p> {% endif %}
+        <p>{{event.interested.all.count}} others are interested!</p>
+        <!-- {% if user in event.participants.all %} <p>participant!</p> {% endif %} -->
         <p>{{ event.points }}</p>
         <p>{{ event.description }}</p>
         <!--<p>{{ event.location }}</p> -->
         <!--<p>{{ event.tags }}</p> -->
-        <button type="submit" class="btn-block btn btn-primary" style="background:rgba(126, 139, 77, 1);border-color: rgba(126, 139, 77, 1); border-radius:3rem; margin-top:1%" >rsvp</button>
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn-block btn btn-primary" style="background:rgba(126, 139, 77, 1);border-color: rgba(126, 139, 77, 1); border-radius:3rem; margin-top:1%" >
+                {% if not user.is_authenticated %}
+                    Please log in to do interest
+                {% elif user in event.interested.all %}
+                    Remove interest
+                {% else %}
+                    Add interest
+                {% endif %}
+            </button>
+        </form>
         <button type="submit" class="btn-block btn btn-primary" style="background:rgba(126, 139, 77, 1);border-color: rgba(126, 139, 77, 1); border-radius:3rem; margin-top:1%" >admit</button>
     </div>
 </div>

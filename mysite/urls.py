@@ -23,4 +23,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('leaderboard/', include('leaderboard.urls')),
     path('user/', include('user.urls')),
+    path('', include('qr_code.urls', namespace='qr_code')),
 ]
