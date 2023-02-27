@@ -1,0 +1,26 @@
+[
+    {
+        "model": "prizes.prize",
+        "pk": 1,
+        "fields": {
+            "prize_name": "penguin",
+            "coins_required": 30,
+            "description": "fluffy!",
+            "image": "",
+            "can_be_redeemed": true,
+            "visibility": true
+        }
+    },
+    {
+        "model": "prizes.prize",
+        "pk": 2,
+        "fields": {
+            "prize_name": "unicorn",
+            "coins_required": 50,
+            "description": "uwu",
+            "image": "",
+            "can_be_redeemed": true,
+            "visibility": true
+        }
+    }
+]

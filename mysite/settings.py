@@ -32,6 +32,8 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'events.apps.EventsConfig',
+    'badges.apps.BadgesConfig',
+    'prizes.apps.PrizesConfig',
     'home.apps.HomeConfig',
     'leaderboard.apps.LeaderboardConfig',
     'user.apps.UserConfig',

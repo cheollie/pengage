@@ -8,7 +8,7 @@ from .models import CustomUser
 class CustomUserAdmin(UserAdmin):
     list_display = (
         'username', 'email', 'first_name', 'last_name', 'is_staff',
-        'grade', 'points'
+        'grade', 'points_alltime', 'points_quarterly'
     )
 
     fieldsets = (
@@ -22,7 +22,7 @@ class CustomUserAdmin(UserAdmin):
             'fields': ('events_interested', 'events_participated')
         }),
         ('Points and Prizes', {
-            'fields': ('points', 'coins', 'prizes_redeemed')
+            'fields': ('points_alltime', 'points_quarterly', 'coins', 'prizes_redeemed', 'badges_earned')
         }),
         ('Permissions', {
             'fields': (
@@ -45,7 +45,7 @@ class CustomUserAdmin(UserAdmin):
             'fields': ('events_interested', 'events_participated')
         }),
         ('Points and Prizes', {
-            'fields': ('points', 'coins', 'prizes_redeemed')
+            'fields': ('points_alltime', 'points_quarterly', 'coins', 'prizes_redeemed', 'badges_earned')
         }),
         ('Permissions', {
             'fields': (

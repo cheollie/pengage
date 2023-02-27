@@ -1,0 +1,20 @@
+[
+    {
+        "model": "badges.badge",
+        "pk": 1,
+        "fields": {
+            "name": "superman",
+            "description": "participate in 5 events",
+            "icon": "static/img/event_images/run.png"
+        }
+    },
+    {
+        "model": "badges.badge",
+        "pk": 2,
+        "fields": {
+            "name": "armadillo",
+            "description": "be strong!",
+            "icon": "static/img/event_images/porcupine.png"
+        }
+    }
+]
