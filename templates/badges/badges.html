@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Badges{% endblock %}
+
+{% block content %}
+<div>
+    <h1>Badges</h1>
+    <ul>
+        {% for badge in badges %}
+        <li>
+            {{badge.name}}
+            {{badge.description}}
+            <img src="../{{badge.icon}}" alt="{{badge.name}}" />
+            <div>
+                {% if not user.is_authenticated %}
+                    <a href="{% url 'login' %}">Login to collect</a>
+                {% elif badge in collected %}
+                    Collected!
+                {% else %}
+                    Not Collected
+                {% endif %}
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
