@@ -8,7 +8,8 @@
         {% for user in users_list %}
             <div>
                 <div>{{user.username}}</div>
-                <div>{{user.points}}</div>
+                <div>{{user.points_alltime}}</div>
+                <div>{{user.points_quarterly}}</div>
             </div>
         {% endfor %}
     {% else %}

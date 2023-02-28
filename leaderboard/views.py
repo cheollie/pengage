@@ -6,6 +6,6 @@ User = get_user_model()
 # display events
 def leaderboard(request):
     # get users
-    users_list = User.objects.order_by('-points')
+    users_list = User.objects.order_by('-points_alltime')
     content = {'users_list': users_list}    
     return render(request, 'leaderboard/leaderboard.html', content)

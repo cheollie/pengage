@@ -1,0 +1,31 @@
+{% extends 'base.html' %} 
+
+{% block title %}Admit{% endblock %} 
+
+{% block content %} 
+    <h1>Admit</h1> 
+    <form action="" method=POST> 
+        {% csrf_token %} 
+        <table>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Admit</th>
+            </tr>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.first_name }}</td>
+                    <td>{{ user.last_name }}</td>
+                    <td>
+                        {% if user in event.participants.all %}
+                            <input type="checkbox" name="admit" value="{{ user.username }}" checked>
+                        {% else %}
+                            <input type="checkbox" name="admit" value="{{ user.username }}">
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        <input type="submit" value="Admit"> 
+    </form> 
+{% endblock %}
