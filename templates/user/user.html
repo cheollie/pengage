@@ -5,6 +5,7 @@
 
 {% block content %}
 
+
 <div class="container body-content" style="">
     <div class="row" style="margin-top: 10%;  margin-bottom: 1%;">
         <h1 style="text-align: left; margin-bottom: 2%;">
@@ -19,6 +20,15 @@
         <hr>
         <div>Bio: {{user.bio}}</div>
         <hr>
+    </div>
+    <div>
+        Quarterly Overall: #{{quarterly_overall}}
+        <br>
+        Quarterly Grade: #{{quarterly_grade}}
+        <br>
+        Alltime Overall: #{{alltime_overall}}
+        <br>
+        Alltime Grade: #{{alltime_grade}}
     </div>
     {% if not user.is_public %}
     <div class="row" style="margin-bottom: 3%;">

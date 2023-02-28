@@ -1,10 +1,23 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect, Http404
 from .forms import CreateUserForm, EditProfileForm  # import custom user creation form
+from events.models import Event
+from django.utils import timezone
+from datetime import date
 
 # display home page
 def index(request):
-    return render(request, 'home/index.html')
+    events_list = Event.objects.order_by('-pub_date')
+    upcoming_events = []
+    upcoming_interested = []
+    for event in events_list:
+        if event.start_date >= date.today():
+            if request.user.is_authenticated:
+                if request.user in event.interested.all():
+                    upcoming_interested.append(event)
+            upcoming_events.append(event)
+    upcoming_events = upcoming_events[:3]
+    return render(request, 'home/index.html', {'upcoming_events': upcoming_events, 'upcoming_interested': upcoming_interested})
 
 # display register page
 def register(request):

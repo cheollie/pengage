@@ -3,7 +3,22 @@
 {% block content %}
     <h1>Home</h1>
     <p>Home page content goes here.</p>
-    <!-- can also do this in code with response.user -->
+
+    <div>
+        Upcoming events:
+        <ul>
+            {% for event in upcoming_events %}
+                <li><a href="/events/{{ event.id }}">{{ event.event_title }}</a></li>
+            {% endfor %}
+    </div>
+    <div>
+        Upcoming Interested Events:
+        <ul>
+            {% for event in upcoming_interested %}
+                <li><a href="/events/{{ event.id }}">{{ event.event_title }}</a></li>
+            {% endfor %}
+    </div>
+
     {% if user.is_authenticated %} 
         <p>You are logged in as {{ user.username }}.</p>
     {% else %}

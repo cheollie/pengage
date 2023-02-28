@@ -13,5 +13,13 @@ def user(request, username=None):
     user = User.objects.filter(username=username).first()
     if user == None:
         raise Http404("User does not exist")
-    content = {'user': user, 'is_self': request.user == user}
+    
+    # get rank
+    quarterly_overall = list(User.objects.order_by('-points_quarterly')).index(user) + 1
+    quarterly_grade = list(User.objects.filter(grade=user.grade).order_by('-points_quarterly')).index(user) + 1
+    alltime_overall = list(User.objects.order_by('-points_alltime')).index(user) + 1
+    alltime_grade = list(User.objects.filter(grade=user.grade).order_by('-points_alltime')).index(user) + 1
+
+    content = {'user': user, 'is_self': request.user == user, 'quarterly_overall': quarterly_overall, 'quarterly_grade': quarterly_grade, 'alltime_overall': alltime_overall, 'alltime_grade': alltime_grade}
     return render(request, 'user/user.html', content)
+
