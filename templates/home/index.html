@@ -5,6 +5,23 @@
     <p>Home page content goes here.</p>
 
     <div>
+        Quarterly Leaderboard Snippet:
+        <ul>
+            {% for user in quarterly_leaderboard %}
+                <li>{{ user.username }}: {{ user.points_quarterly }}</li>
+            {% endfor %}
+    </div>
+
+    <div>
+        Alltime Leaderboard Snippet:
+        <ul>
+            {% for user in alltime_leaderboard %}
+                <li>{{ user.username }}: {{ user.points_alltime }}</li>
+            {% endfor %}
+    </div>
+
+
+    <div>
         Upcoming events:
         <ul>
             {% for event in upcoming_events %}

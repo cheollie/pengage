@@ -4,9 +4,12 @@ from .forms import CreateUserForm, EditProfileForm  # import custom user creatio
 from events.models import Event
 from django.utils import timezone
 from datetime import date
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 # display home page
 def index(request):
+    # upcoming and upcoming interseted events
     events_list = Event.objects.order_by('-pub_date')
     upcoming_events = []
     upcoming_interested = []
@@ -17,7 +20,27 @@ def index(request):
                     upcoming_interested.append(event)
             upcoming_events.append(event)
     upcoming_events = upcoming_events[:3]
-    return render(request, 'home/index.html', {'upcoming_events': upcoming_events, 'upcoming_interested': upcoming_interested})
+
+    is_logged_in = request.user.is_authenticated
+
+    # quarterly leaderboard
+    quarterly_leaderboard = User.objects.order_by('-points_quarterly')
+    if not is_logged_in or list(quarterly_leaderboard).index(request.user) < 5:
+        quarterly_leaderboard = quarterly_leaderboard[:5]
+    else:
+        ind = list(quarterly_leaderboard).index(request.user)
+        quarterly_leaderboard = quarterly_leaderboard[:2] + quarterly_leaderboard[ind-1:ind+2]
+    
+    # all time leaderboard
+    alltime_leaderboard = User.objects.order_by('-points_alltime')
+    if not is_logged_in or list(alltime_leaderboard).index(request.user) < 5:
+        alltime_leaderboard = alltime_leaderboard[:5]
+    else:
+        ind = list(alltime_leaderboard).index(request.user)
+        alltime_leaderboard = alltime_leaderboard[:2] + alltime_leaderboard[ind-1:ind+2]
+
+
+    return render(request, 'home/index.html', {'upcoming_events': upcoming_events, 'upcoming_interested': upcoming_interested, 'quarterly_leaderboard': quarterly_leaderboard, 'alltime_leaderboard': alltime_leaderboard})
 
 # display register page
 def register(request):
