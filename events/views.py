@@ -2,6 +2,8 @@ from django.shortcuts import render
 from .models import Event
 from django.http import HttpResponseRedirect, Http404
 from django.contrib import messages
+from django.utils import timezone
+from datetime import date
 
 # display events
 def events(request):
@@ -15,9 +17,7 @@ def full_event(request, event_id):
         event = Event.objects.get(pk=event_id)
     except Event.DoesNotExist:
         raise Http404("Event does not exist")
-    print(request)
     if request.method == "POST":
-        print(request.user)
         if request.user in event.interested.all():
             event.interested.remove(request.user)
             request.user.events_interested.remove(event)
@@ -27,15 +27,16 @@ def full_event(request, event_id):
             request.user.events_interested.add(event)
             messages.success(request, "You are now interested in this event")
         return HttpResponseRedirect(request.path_info)
+    manager, organizer = False, False
     if request.user == event.organizer or request.user.is_staff or request.user.is_superuser:
         manager = True
-    else:
-        manager = False
     if request.user == event.organizer:
         organizer = True
-    else:
-        organizer = False
-    return render(request, 'events/full_event.html', {'event': event, 'manager': manager, 'organizer': organizer})
+    event_ended = False
+    if event.end_date < date.today() or (event.end_date == date.today() and event.end_time < timezone.now().time()):
+        event_ended = True
+    
+    return render(request, 'events/full_event.html', {'event': event, 'manager': manager, 'organizer': organizer, 'event_ended': event_ended})
 
 # admit users to event
 def admit(request, event_id):
@@ -59,3 +60,21 @@ def admit(request, event_id):
         messages.success(request, "Attendance has been updated")
         return HttpResponseRedirect(request.path_info)
     return render(request, 'events/admit.html', {'event': event, 'users': users})
+
+# propagate points
+def propagate(request, event_id):
+    try:
+        event = Event.objects.get(pk=event_id)
+    except Event.DoesNotExist:
+        raise Http404("Event does not exist")
+    if not (request.user == event.organizer or request.user.is_staff or request.user.is_superuser):
+        raise Http404("You are not the organizer of this event")
+    users = event.participants.all()
+    print(users)
+    for user in users:
+        user.points_alltime += event.points
+        user.points_quarterly += event.points
+        user.coins += event.points
+        user.save()
+    messages.success(request, "Points have been propagated")
+    return HttpResponseRedirect('../')

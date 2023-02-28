@@ -1,0 +1,1 @@
+[{"model": "prizes.prize", "pk": "18d8ba42-39bd-43ef-9389-6fa51556dbda", "fields": {"prize_name": "unicorn", "coins_required": 30, "description": "asdfasdf", "image": "static/img/prize_images/run.png", "can_be_redeemed": true, "visibility": true}}]
