@@ -19,7 +19,7 @@
         <p>{{ event.description }}</p>
         <!--<p>{{ event.location }}</p> -->
         <!--<p>{{ event.tags }}</p> -->
-        {% if not organizer and not event_ended %}
+        {% if not organizer and not event_started %}
         <form method="POST">
             {% csrf_token %}
             <button type="submit" class="btn-block btn btn-primary" style="background:rgba(126, 139, 77, 1);border-color: rgba(126, 139, 77, 1); border-radius:3rem; margin-top:1%" >
@@ -35,11 +35,11 @@
         {% endif %}
         
         {% if manager %}
-            {% if not event_ended %}
+            {% if event_started and not event_ended %}
                 <a href="/events/{{event.id}}/admit">
                     <button type="submit" class="btn-block btn btn-primary" style="background:rgba(126, 139, 77, 1);border-color: rgba(126, 139, 77, 1); border-radius:3rem; margin-top:1%" >admit</button>
                 </a>
-            {% else %}
+            {% elif event_ended %}
                 <a href="/events/{{event.id}}/propagate">
                     <button type="submit" class="btn-block btn btn-primary" style="background:rgba(126, 139, 77, 1);border-color: rgba(126, 139, 77, 1); border-radius:3rem; margin-top:1%" >Propogate Points</button>
                 </a>

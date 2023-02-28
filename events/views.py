@@ -32,11 +32,15 @@ def full_event(request, event_id):
         manager = True
     if request.user == event.organizer:
         organizer = True
+    
+    event_started = False
+    if event.start_date < date.today() or (event.start_date == date.today() and event.start_time < timezone.now().time()):
+        event_started = True
     event_ended = False
     if event.end_date < date.today() or (event.end_date == date.today() and event.end_time < timezone.now().time()):
         event_ended = True
     
-    return render(request, 'events/full_event.html', {'event': event, 'manager': manager, 'organizer': organizer, 'event_ended': event_ended})
+    return render(request, 'events/full_event.html', {'event': event, 'manager': manager, 'organizer': organizer, 'event_started': event_started, 'event_ended': event_ended})
 
 # admit users to event
 def admit(request, event_id):
