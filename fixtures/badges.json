@@ -5,7 +5,7 @@
         "fields": {
             "name": "superman",
             "description": "participate in 5 events",
-            "icon": "static/img/event_images/run.png"
+            "icon": "static/img/badge_images/run.png"
         }
     },
     {
@@ -14,7 +14,7 @@
         "fields": {
             "name": "armadillo",
             "description": "be strong!",
-            "icon": "static/img/event_images/porcupine.png"
+            "icon": "static/img/badge_images/porcupine.png"
         }
     }
 ]

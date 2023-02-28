@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+import uuid
 
 # Create your models here.
 
@@ -11,6 +12,7 @@ class Prize(models.Model):
     image = models.ImageField(upload_to='static/img/prize_images/', null=True, blank=True)
     can_be_redeemed = models.BooleanField(default=False)
     visibility = models.BooleanField(default=False)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     # pub_date = models.DateTimeField('date added')
     # start_date = models.DateField(default=timezone.now())
     # start_time = models.TimeField(default=timezone.now())

@@ -19,9 +19,11 @@ from django.urls import include, path
 urlpatterns = [
     path('', include('home.urls')),
     path('', include('django.contrib.auth.urls')),
+    path('badges/', include('badges.urls')),
     path('events/', include('events.urls')),
     path('admin/', admin.site.urls),
     path('leaderboard/', include('leaderboard.urls')),
+    path('prizes/', include('prizes.urls')),
     path('user/', include('user.urls')),
     path('', include('qr_code.urls', namespace='qr_code')),
 ]

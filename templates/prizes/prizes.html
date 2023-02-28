@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}Badges{% endblock %}
+
+{% block content %}
+<div>
+    <h1>Badges</h1>
+    <ul>
+        {% for prize in prizes %}
+        <li>
+            {{prize.prize_name}}
+            {{prize.description}}
+            {% if prize.image %}
+            <img src="../{{prize.image}}" alt="{{prize.name}}" />
+            {% else %}
+            <img src="../static/img/badge_images/porcupine.png" alt="{{prize.name}}" />
+            {% endif %}
+            <div>
+                {% if not user.is_authenticated %}
+                    <a href="{% url 'login' %}">Login to buy</a>
+                {% elif prize in collected %}
+                    Bought Already
+                {% else %}
+                    <div>
+                        <form action="{{prize.id}}/" method="post">
+                            {% csrf_token %}
+                            <input type="submit" value="Buy" />
+                        </form>
+                    </div>
+                {% endif %}
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
