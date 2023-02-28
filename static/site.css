@@ -2,13 +2,12 @@
 body {
     padding-top: 50px;
     padding-bottom: 20px;
-    font-family: 'Questrial', sans-serif !important;
-    color: rgba(56, 73, 35, 1) !important;
-    background-image: url('https://media.discordapp.net/attachments/759867023885860934/1031193256433831997/unknown.png');
+    font-family: 'Chivo', sans-serif !important;
+    color: #523911 !important;
+    /*background-image: url('https://media.discordapp.net/attachments/759867023885860934/1031193256433831997/unknown.png');*/
     background-repeat: no-repeat;
     background-size: 100% 150%;
     height:100%;
-
 }
 
 
@@ -20,8 +19,8 @@ body {
 }
 
 .nav-space{
-    padding-left: 12%;
-    padding-right: 12%;
+    padding-left: 8%;
+    padding-right: 8%;
 }
 
 #map { height: 420px; }
@@ -38,6 +37,8 @@ textarea {
 }
 
 p {font-size: 18px;}
+
+h1 { font-weight: 600; font-size: 45px; }
 
 .jumbotron-welcome{
     background: url('images/MainBackgroundImage.jpg') no-repeat fixed;
@@ -68,12 +69,16 @@ p {font-size: 18px;}
 }
 
 .btn-default{
-    background-color: rgba(90, 100, 53, 1) !important;
+    background-color: #886D56 !important;
     color: rgb(255, 255, 255) !important;
 }
 
 .bg-primary {
-    background-color:rgba(90, 100, 53, 1) !important;
+    
+    background-color: #FFFFFF !important;
+    -webkit-box-shadow: 0px 0px 10px 0px #FFB53FBF;
+    -moz-box-shadow: 0px 0px 10px 0px #FFB53FBF;
+    box-shadow: 0px 0px 10px 0px #FFB53FBF;
 }
 
 .card-footer{
@@ -89,6 +94,11 @@ p {font-size: 18px;}
 
 .colored-link{
     color: rgba(126, 139, 77, 1);
+}
+
+.logo{
+    font-size: 2rem;
+    font-weight: 700;
 }
 
 .vertical-center {

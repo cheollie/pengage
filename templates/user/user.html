@@ -7,20 +7,13 @@
 
 
 <div class="container body-content" style="">
-    <div class="row" style="margin-top: 10%;  margin-bottom: 1%;">
-        <h1 style="text-align: left; margin-bottom: 2%;">
-            {% if is_self %}
-            <a href="/profile/update/">Edit</a>
-            {% endif %}
-            <bold>user: {{ user.first_name }} {{ user.last_name }} ({{ user.username }}) [Grade {{user.grade}}]</bold>
-            {% if is_self %}
-            <p>{{user.email}} (only visible to you)</p>
-            {% endif %}
-        </h1>
-        <hr>
-        <div>Bio: {{user.bio}}</div>
-        <hr>
+    <div class="row" style="margin-top: 7%;  margin-bottom: 3%;">
+        <h1 style="margin-bottom: 0%;">{{ user.first_name }} {{ user.last_name }}</h1>
+        <p style="">{{ user.username }} {{user.grade}} {% if is_self %} <a href="/profile/update/">edit</a> {% endif %} </p>
+        <br>
+        <p>{{user.bio}}</p>
     </div>
+    
     <div>
         Quarterly Overall: #{{quarterly_overall}}
         <br>

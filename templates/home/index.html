@@ -1,44 +1,51 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Home</h1>
-    <p>Home page content goes here.</p>
+{% if user.is_authenticated %}
+<div class="row" style="margin-top: 7%;  margin-bottom: 3%;">
+    <h1 style="text-align: center; margin-bottom: 0%;">welcome back, {{ user.username }}!</h1>
+    <p style="text-align: center;">filter, sort, and search to find the event for you!</p>
+</div>
+<div>
+    Quarterly Leaderboard Snippet:
+    <ul>
+        {% for user in quarterly_leaderboard %}
+        <li>{{ user.username }}: {{ user.points_quarterly }}</li>
+        {% endfor %}
+</div>
 
-    <div>
-        Quarterly Leaderboard Snippet:
-        <ul>
-            {% for user in quarterly_leaderboard %}
-                <li>{{ user.username }}: {{ user.points_quarterly }}</li>
-            {% endfor %}
+<div>
+    Alltime Leaderboard Snippet:
+    <ul>
+        {% for user in alltime_leaderboard %}
+        <li>{{ user.username }}: {{ user.points_alltime }}</li>
+        {% endfor %}
+</div>
+
+
+<div>
+    <h2>upcoming events:</h2>
+    <div class="row">
+        {% for event in upcoming_events %}
+        <div class="col">
+            <a href="/events/{{ event.id }}">{{ event.event_title }}</a>
+        </div>
+        {% endfor %}
     </div>
-
-    <div>
-        Alltime Leaderboard Snippet:
-        <ul>
-            {% for user in alltime_leaderboard %}
-                <li>{{ user.username }}: {{ user.points_alltime }}</li>
-            {% endfor %}
+    <h2>explore events:</h2>
+    <div class="row">
+        {% for event in upcoming_interested %}
+        <div class="col">
+            <a href="/events/{{ event.id }}">{{ event.event_title }}</a>
+        </div>
+        {% endfor %}
     </div>
-
-
-    <div>
-        Upcoming events:
-        <ul>
-            {% for event in upcoming_events %}
-                <li><a href="/events/{{ event.id }}">{{ event.event_title }}</a></li>
-            {% endfor %}
-    </div>
-    <div>
-        Upcoming Interested Events:
-        <ul>
-            {% for event in upcoming_interested %}
-                <li><a href="/events/{{ event.id }}">{{ event.event_title }}</a></li>
-            {% endfor %}
-    </div>
-
-    {% if user.is_authenticated %} 
-        <p>You are logged in as {{ user.username }}.</p>
-    {% else %}
-        <p>You are not logged in. <a href="/login">Login</a> or <a href="/register">make an account</a>.</p>
-    {% endif %}
+</div>
+{% else %}
+<div class="row" style="margin-top: 7%;  margin-bottom: 3%;">
+    <h1 style="text-align: center; margin-bottom: 0%;">pengage</h1> <!-- extra big-->
+    <p style="text-align: center;">cute splash screen blurb here</p>
+</div>
+<p>You are not logged in. <a href="/login">Login</a> or <a href="/register">make an account</a>.</p>
+{% endif %}
 {% endblock %}
