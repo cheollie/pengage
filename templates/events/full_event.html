@@ -19,7 +19,7 @@
         <p>{{ event.description }}</p>
         <!--<p>{{ event.location }}</p> -->
         <!--<p>{{ event.tags }}</p> -->
-        {% if not organizer %}
+        {% if not organizer and not event_ended %}
         <form method="POST">
             {% csrf_token %}
             <button type="submit" class="btn-block btn btn-primary" style="background:rgba(126, 139, 77, 1);border-color: rgba(126, 139, 77, 1); border-radius:3rem; margin-top:1%" >
