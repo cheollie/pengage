@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect, Http404
 from django.contrib import messages
 from django.utils import timezone
 from datetime import date
+from mysite.config import today_date, today_time
 
 # display events
 def events(request):
@@ -33,11 +34,16 @@ def full_event(request, event_id):
     if request.user == event.organizer:
         organizer = True
     
+    curr_date = today_date if today_date else date.today()
+    curr_time = today_time if today_time else timezone.now().time()
+
+    print(curr_date, curr_time)
+
     event_started = False
-    if event.start_date < date.today() or (event.start_date == date.today() and event.start_time < timezone.now().time()):
+    if event.start_date < curr_date or (event.start_date == curr_date and event.start_time < curr_time):
         event_started = True
     event_ended = False
-    if event.end_date < date.today() or (event.end_date == date.today() and event.end_time < timezone.now().time()):
+    if event.end_date < curr_date or (event.end_date == curr_date and event.end_time < curr_time):
         event_ended = True
     
     return render(request, 'events/full_event.html', {'event': event, 'manager': manager, 'organizer': organizer, 'event_started': event_started, 'event_ended': event_ended})
@@ -73,6 +79,8 @@ def propagate(request, event_id):
         raise Http404("Event does not exist")
     if not (request.user == event.organizer or request.user.is_staff or request.user.is_superuser):
         raise Http404("You are not the organizer of this event")
+    if event.points_propagated:
+        raise Http404("Points have already been propagated")
     users = event.participants.all()
     print(users)
     for user in users:
@@ -80,5 +88,7 @@ def propagate(request, event_id):
         user.points_quarterly += event.points
         user.coins += event.points
         user.save()
+    event.points_propagated = True
+    event.save()
     messages.success(request, "Points have been propagated")
     return HttpResponseRedirect('../')

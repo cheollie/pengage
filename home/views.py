@@ -4,6 +4,7 @@ from .forms import CreateUserForm, EditProfileForm  # import custom user creatio
 from events.models import Event
 from django.utils import timezone
 from datetime import date
+from mysite.config import today_date, today_time
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
@@ -13,8 +14,10 @@ def index(request):
     events_list = Event.objects.order_by('-pub_date')
     upcoming_events = []
     upcoming_interested = []
+    curr_date = today_date if today_date else date.today()
+    curr_time = today_time if today_time else timezone.now().time()
     for event in events_list:
-        if event.start_date >= date.today():
+        if curr_date <= event.start_date or (curr_date == event.start_date and curr_time <= event.start_time):
             if request.user.is_authenticated:
                 if request.user in event.interested.all():
                     upcoming_interested.append(event)

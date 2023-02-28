@@ -29,6 +29,7 @@ class Event(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     tags = models.ManyToManyField(Tag, blank=True)
     visibility = models.BooleanField(default=False)
+    points_propagated = models.BooleanField(default=False)
     
     def __str__(self):
         return self.event_title
