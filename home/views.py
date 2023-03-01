@@ -45,8 +45,10 @@ def index(request):
         ind = list(alltime_leaderboard).index(request.user)
         alltime_leaderboard = alltime_leaderboard[:2] + alltime_leaderboard[ind-1:ind+2]
 
+    # past-winners
+    past_winners = User.objects.order_by('username').filter(past_winner=True)
 
-    return render(request, 'home/index.html', {'upcoming_events': upcoming_events, 'upcoming_interested': upcoming_interested, 'quarterly_leaderboard': quarterly_leaderboard, 'alltime_leaderboard': alltime_leaderboard})
+    return render(request, 'home/index.html', {'upcoming_events': upcoming_events, 'upcoming_interested': upcoming_interested, 'quarterly_leaderboard': quarterly_leaderboard, 'alltime_leaderboard': alltime_leaderboard, 'past_winners': past_winners})
 
 # display register page
 def register(request):
@@ -88,15 +90,19 @@ def end_quarter(request):
     print(winners)
 
     for user in users:
+        user.past_winner = False
+        user.past_prize = ""
         if user in winners:
+            user.past_winner = True
             if user.prizes_redeemed.count() == Prize.objects.count():
                 user.delayed_notification = 'The quarter has ended. You won a $10 gift card because you have redeemed all the prizes!'
+                user.past_prize = "$10 gift card"
             else:
                 while True:
                     prize = random.choice(Prize.objects.all())
                     if prize not in user.prizes_redeemed.all():
                         user.delayed_notification = f'The quarter has ended. You won a {prize.prize_name}!'
-                        user.prizes_redeemed.add(prize)
+                        user.past_prize = prize.prize_name
                         break
         else:
             user.delayed_notification = 'The quarter has ended!'

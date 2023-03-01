@@ -6,6 +6,15 @@
     <h1 style="text-align: center; margin-bottom: 0%;">welcome back, {{ user.username }}!</h1>
     <p style="text-align: center;">filter, sort, and search to find the event for you!</p>
 </div>
+
+<div>
+    Past Winners:
+    <ul>
+        {% for user in past_winners %}
+        <li>{{ user.username }}, won a {{user.past_prize}}</li>
+        {% endfor %}
+</div>
+
 <div>
     Quarterly Leaderboard Snippet:
     <ul>

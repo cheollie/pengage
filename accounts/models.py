@@ -15,3 +15,5 @@ class CustomUser(AbstractUser):
     badges_earned = models.ManyToManyField('badges.Badge', blank=True)
     is_private = models.BooleanField(default=False)
     delayed_notification = models.CharField(max_length=100)
+    past_winner = models.BooleanField(default=False)
+    past_prize = models.CharField(max_length=100, blank=True)
