@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.contrib import messages
 
 class CustomUser(AbstractUser):
     bio = models.TextField(max_length=500, blank=True)
@@ -13,4 +14,4 @@ class CustomUser(AbstractUser):
     prizes_redeemed = models.ManyToManyField('prizes.Prize', blank=True)
     badges_earned = models.ManyToManyField('badges.Badge', blank=True)
     is_private = models.BooleanField(default=False)
-
+    delayed_notification = models.CharField(max_length=100)

@@ -48,4 +48,9 @@
 </div>
 <p>You are not logged in. <a href="/login">Login</a> or <a href="/register">make an account</a>.</p>
 {% endif %}
+{% if user.is_superuser %}
+<a href="/end_quarter/" class="card-link">End Quarter (should be button)</a>
+{% endif %}
+
 {% endblock %}
+

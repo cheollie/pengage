@@ -7,6 +7,9 @@ from datetime import date
 from mysite.config import today_date, today_time
 from django.contrib.auth import get_user_model
 User = get_user_model()
+from django.contrib import messages
+import random
+from prizes.models import Prize
 
 # display home page
 def index(request):
@@ -69,3 +72,35 @@ def update(request):
         return HttpResponseRedirect('/user/')
 
     return render(request, 'home/update.html', {'user': user, 'form': editForm})
+
+# end quarter, reset points, distribute prizes
+def end_quarter(request):
+    if not request.user.is_authenticated:
+        raise Http404("You are not logged in")
+    if not request.user.is_superuser:
+        raise Http404('You are not an admin!')
+    users = User.objects.all().order_by('-points_quarterly')
+    winners = [users[0]]
+    for grade in range(9, 13):
+        grade_users = [user for user in users if user.grade == grade]
+        if grade_users:
+            winners.append(random.choice(grade_users))
+    print(winners)
+
+    for user in users:
+        if user in winners:
+            if user.prizes_redeemed.count() == Prize.objects.count():
+                user.delayed_notification = 'The quarter has ended. You won a $10 gift card because you have redeemed all the prizes!'
+            else:
+                while True:
+                    prize = random.choice(Prize.objects.all())
+                    if prize not in user.prizes_redeemed.all():
+                        user.delayed_notification = f'The quarter has ended. You won a {prize.prize_name}!'
+                        user.prizes_redeemed.add(prize)
+                        break
+        else:
+            user.delayed_notification = 'The quarter has ended!'
+        user.points_quarterly = 0
+        user.save()
+    messages.success(request, 'Quarterly points reset and prizes distributed!')
+    return HttpResponseRedirect('../')
