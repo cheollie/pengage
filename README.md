@@ -20,7 +20,15 @@ Pengage was made using Django with SQLite for a database.
 - events catered to you! - you are able to set interested tags, so events with the tags you added will be recommended to you on your dashboard
 - seamless attendance system - uses qr codes to easily scan attendees into events with just a staff member...
 - interest/rsvp system
-- 
+- private accounts
+- is a progressive web app - can work just like an app
+- event approval (coming soon)
+- proximity attendance system (coming soon)
+- filter, sort, search for events (coming soon)
+- notifs (coming soon)
+- referral (coming soon)
+- markdown support (coming soon)
+
 
 ## installation
 Firstly, have python installed, make sure to install the requirements, prepare the database, and lastly, run the server.
