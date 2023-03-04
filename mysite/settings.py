@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'accounts',
     'bootstrap5',
     'qr_code',
+    'pwa',
 ]
 
 MIDDLEWARE = [
@@ -140,3 +141,33 @@ LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 
 SERVE_QR_CODE_IMAGE_PATH = 'qr-code-image/'
+
+PWA_APP_NAME = 'Pengage'
+PWA_APP_DESCRIPTION = "My app description"
+PWA_APP_THEME_COLOR = '#FFB53F'
+PWA_APP_BACKGROUND_COLOR = '#ffffff'
+PWA_APP_DISPLAY = 'standalone'
+PWA_APP_SCOPE = '/'
+PWA_APP_ORIENTATION = 'any'
+PWA_APP_START_URL = '/'
+PWA_APP_STATUS_BAR_COLOR = 'default'
+PWA_APP_ICONS = [
+    {
+        'src': 'static/favicons/android-chrome-192x192.png',
+        'sizes': '160x160'
+    }
+]
+PWA_APP_ICONS_APPLE = [
+    {
+        'src': 'static/favicons/apple-touch-icon.png',
+        'sizes': '160x160'
+    }
+]
+PWA_APP_SPLASH_SCREEN = [
+    {
+        'src': 'static/favicons/splash-640x1136.png',
+        'media': '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)'
+    }
+]
+PWA_APP_DIR = 'ltr'
+PWA_APP_LANG = 'en-US'

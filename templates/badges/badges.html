@@ -7,23 +7,30 @@
         <h1 style="text-align: center; margin-bottom: 0%;">badges</h1>
         <p style="text-align: center;">complete challenges and earn badges!</p>
     </div>
-    <ul>
+    <div class="row">
         {% for badge in badges %}
-        <li>
-            {{badge.name}}
-            {{badge.description}}
-            <img src="../{{badge.icon}}" alt="{{badge.name}}" />
-            <div>
-                {% if not user.is_authenticated %}
-                    <a href="{% url 'login' %}">Login to collect</a>
-                {% elif badge in collected %}
-                    Collected!
-                {% else %}
-                    Not Collected
-                {% endif %}
+        <div class="col-sm-2">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title">
+                        <b>{{badge.name}}</b>
+                    </div>
+                    <div class="card-text">{{badge.description}}</div>
+
+                    <img src="../{{badge.icon}}" class="card-img-top" alt="{{badge.name}}" />
+                    <div class="card-text">
+                        {% if not user.is_authenticated %}
+                        <a href="{% url 'login' %}">Login to collect</a>
+                        {% elif badge in collected %}
+                        Collected!
+                        {% else %}
+                        Not Collected
+                        {% endif %}
+                    </div>
+                </div>
             </div>
-        </li>
+        </div>
         {% endfor %}
-    </ul>
+    </div>
 </div>
 {% endblock %}

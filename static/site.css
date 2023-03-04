@@ -166,3 +166,6 @@ small{
 .errors{
     color: red;
 }
+.smaller{
+    font-size: 1rem;
+}

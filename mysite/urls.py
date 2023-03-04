@@ -26,4 +26,5 @@ urlpatterns = [
     path('prizes/', include('prizes.urls')),
     path('user/', include('user.urls')),
     path('', include('qr_code.urls', namespace='qr_code')),
+    path('', include('pwa.urls')),  # You MUST use an empty string as the URL prefix
 ]
