@@ -6,6 +6,10 @@ So dive right in. Join the flock and become a school spirit sensation with Penga
 ## about
 Pengage was made using Django with SQLite for a database. 
 
+## links
+[pitch](https://docs.google.com/presentation/d/1Nc6a9CO1Aj1EU6Mz8Gz6ZClQFrDZ2XJ5YG4dfSwtZNE/edit?usp=sharing)
+[documentation](https://docs.google.com/document/d/1JW6pNKZsZqvjWx-2vuyOSG4unTPhoZtNSQzdP2LoL5g/edit?usp=sharing)
+
 ## features
 
 **main features:**
