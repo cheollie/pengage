@@ -9,7 +9,7 @@ Pengage was made using Django with SQLite for a database.
 ## features
 
 **main features:**
-- easy keeep track and know what is upcoming events (ill try to make it filterable with tags, but tags is a selling point because ani doesnt have that) 
+- easy keeep track and know what is upcoming events
 - points/leaderboard system
 - cool attendance system for our events
 - inceentivized with prizes and rewards
