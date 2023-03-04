@@ -74,7 +74,7 @@ def admit(request, event_id):
     return render(request, 'events/admit.html', {'event': event, 'users': users})
 
 # admit a single user to event
-def admit_user(request, event_id, user_id):
+def admit_user(request, event_id, username):
     try:
         event = Event.objects.get(pk=event_id)
     except Event.DoesNotExist:
@@ -82,7 +82,7 @@ def admit_user(request, event_id, user_id):
     if not (request.user == event.organizer or request.user.is_staff or request.user.is_superuser):
         raise Http404("You are not the organizer of this event")
     try:
-        user = User.objects.get(pk=user_id)
+        user = User.objects.filter(username=username).first()
     except User.DoesNotExist:
         raise Http404(f"{user.username} does not exist")
     if user in event.interested.all() and user not in event.participants.all():
