@@ -40,11 +40,16 @@
         {% if not organizer and not event_started %}
         {% if not user.is_authenticated %}
         Please log in to do interest
+        {% else %}
         <form method="POST">
             {% csrf_token %}
-            <button type="submit" class="btn-block btn btn-primary"
-                style="background:rgba(126, 139, 77, 1);border-color: rgba(126, 139, 77, 1); border-radius:3rem; margin-top:1%">
-                {% elif user in event.interested.all %}Remove interest{% else %}Add interest{% endif %}</button>
+            <button type="submit" class="btn-block btn btn-primary" style="background:rgba(126, 139, 77, 1);border-color: rgba(126, 139, 77, 1); border-radius:3rem; margin-top:1%" >
+                {% if user in event.interested.all %}
+                    Remove interest
+                {% else %}
+                    Add interest
+                {% endif %}
+            </button>
         </form>
         {% endif %}
 
