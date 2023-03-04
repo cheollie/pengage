@@ -8,9 +8,26 @@ from mysite.config import today_date, today_time
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
+
 # display events
 def events(request):
-    events_list = Event.objects.order_by('-pub_date')
+    events_list = Event.objects.order_by('-start_date', '-start_time')
+    
+    curr_date = today_date if today_date else date.today()
+    curr_time = today_time if today_time else timezone.now().time()
+
+    for event in events_list:
+        # mark as upcoming, ongoing, ended
+        event_status = 'upcoming'
+        colour = '#bcf1b8'
+        if event.start_date < curr_date or (event.start_date == curr_date and event.start_time < curr_time):
+            event_status = 'ongoing'
+            colour = '#ffeaca'
+        if event.end_date < curr_date or (event.end_date == curr_date and event.end_time < curr_time):
+            event_status = 'ended'
+            colour = '#ffcaca'
+        event.status = event_status
+        event.colour = colour
     content = {'events_list': events_list}
     return render(request, 'events/events.html', content)
 
