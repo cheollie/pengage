@@ -13,7 +13,7 @@ Pengage was made using Django with SQLite for a database.
 - points/leaderboard system
 - cool attendance system for our events
 - inceentivized with prizes and rewards
-- cool side quests/challenges/badges (kinda scuffed rn hopefully i fix in time LMAO)
+- cool side quests/challenges/badges
 + and a cool dashboard having all of the above visible at a glance
 
 **minor features:**
