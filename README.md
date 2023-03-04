@@ -28,6 +28,8 @@ Pengage was made using Django with SQLite for a database.
 - notifs (coming soon)
 - referral (coming soon)
 - markdown support (coming soon)
+- themes (coming soon)
+- private leaderboard (coming soon)
 
 
 ## installation
