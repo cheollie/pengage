@@ -5,6 +5,8 @@ from django.contrib import messages
 from django.utils import timezone
 from datetime import date
 from mysite.config import today_date, today_time
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 # display events
 def events(request):
@@ -70,6 +72,30 @@ def admit(request, event_id):
         messages.success(request, "Attendance has been updated")
         return HttpResponseRedirect(request.path_info)
     return render(request, 'events/admit.html', {'event': event, 'users': users})
+
+# admit a single user to event
+def admit_user(request, event_id, user_id):
+    try:
+        event = Event.objects.get(pk=event_id)
+    except Event.DoesNotExist:
+        raise Http404("Event does not exist")
+    if not (request.user == event.organizer or request.user.is_staff or request.user.is_superuser):
+        raise Http404("You are not the organizer of this event")
+    try:
+        user = User.objects.get(pk=user_id)
+    except User.DoesNotExist:
+        raise Http404(f"{user.username} does not exist")
+    if user in event.interested.all() and user not in event.participants.all():
+        event.participants.add(user)
+        user.events_participated.add(event)
+        messages.success(request, f"{user.username} has been admitted")
+    elif user not in event.interested.all():
+        messages.info(request, f"{user.username} is not interested in this event")
+    else:
+        messages.info(request, f"{user.username} is already admitted")
+    event.save()
+    user.save()
+    return HttpResponseRedirect('../')
 
 # propagate points
 def propagate(request, event_id):
