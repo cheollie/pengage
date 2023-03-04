@@ -27,6 +27,6 @@ def user(request, username=None):
         user.delayed_notification = ''
         user.save()
 
-    content = {'user': user, 'is_self': request.user == user, 'quarterly_overall': quarterly_overall, 'quarterly_grade': quarterly_grade, 'alltime_overall': alltime_overall, 'alltime_grade': alltime_grade}
+    content = {'user': request.user, 'show_user': user, 'is_self': request.user == user, 'quarterly_overall': quarterly_overall, 'quarterly_grade': quarterly_grade, 'alltime_overall': alltime_overall, 'alltime_grade': alltime_grade}
     return render(request, 'user/user.html', content)
 

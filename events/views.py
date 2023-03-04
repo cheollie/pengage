@@ -8,9 +8,26 @@ from mysite.config import today_date, today_time
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
+
 # display events
 def events(request):
-    events_list = Event.objects.order_by('-pub_date')
+    events_list = Event.objects.order_by('-start_date', '-start_time')
+    
+    curr_date = today_date if today_date else date.today()
+    curr_time = today_time if today_time else timezone.now().time()
+
+    for event in events_list:
+        # mark as upcoming, ongoing, ended
+        event_status = 'upcoming'
+        colour = '#bcf1b8'
+        if event.start_date < curr_date or (event.start_date == curr_date and event.start_time < curr_time):
+            event_status = 'ongoing'
+            colour = '#ffeaca'
+        if event.end_date < curr_date or (event.end_date == curr_date and event.end_time < curr_time):
+            event_status = 'ended'
+            colour = '#ffcaca'
+        event.status = event_status
+        event.colour = colour
     content = {'events_list': events_list}
     return render(request, 'events/events.html', content)
 
@@ -74,7 +91,7 @@ def admit(request, event_id):
     return render(request, 'events/admit.html', {'event': event, 'users': users})
 
 # admit a single user to event
-def admit_user(request, event_id, user_id):
+def admit_user(request, event_id, username):
     try:
         event = Event.objects.get(pk=event_id)
     except Event.DoesNotExist:
@@ -82,7 +99,7 @@ def admit_user(request, event_id, user_id):
     if not (request.user == event.organizer or request.user.is_staff or request.user.is_superuser):
         raise Http404("You are not the organizer of this event")
     try:
-        user = User.objects.get(pk=user_id)
+        user = User.objects.filter(username=username).first()
     except User.DoesNotExist:
         raise Http404(f"{user.username} does not exist")
     if user in event.interested.all() and user not in event.participants.all():

@@ -7,10 +7,10 @@
 
 <div class="container body-content" style="">
     <div class="row" style="margin-top: 7%;  margin-bottom: 3%;">
-        <h1 style="margin-bottom: 0%;">{{ user.first_name }} {{ user.last_name }}</h1>
-        <p style="">{{ user.username }} {{user.grade}} {% if is_self %} <a href="/profile/update/">edit</a> {% endif %} </p>
+        <h1 style="margin-bottom: 0%;">{{ show_user.first_name }} {{ show_user.last_name }}</h1>
+        <p style="">{{ show_user.username }} {{show_user.grade}} {% if is_self %} <a href="/profile/update/">edit</a> {% endif %} </p>
         <br>
-        <p>{{user.bio}}</p>
+        <p>{{show_user.bio}}</p>
     </div>
     
     <div>
@@ -38,25 +38,25 @@
     <hr>
     <div>
         Interested Tags:
-        {% for tag in user.tags_interested.all %}
+        {% for tag in show_user.tags_interested.all %}
         <span>{{tag}}</span>
         {% endfor %}
     </div>
     <div>
         Events Interested:
-        {% for event in user.events_interested.all %}
+        {% for event in show_user.events_interested.all %}
         <span>{{event}}</span>
         {% endfor %}
     </div>
     <div>
         Events Participated:
-        {% for event in user.events_participated.all %}
+        {% for event in show_user.events_participated.all %}
         <span>{{event}}</span>
         {% endfor %}
     </div>
     <div>
         Prizes Redeemed:
-        {% for prize in user.prizes_redeemed.all %}
+        {% for prize in show_user.prizes_redeemed.all %}
         <span>{{prize}}</span>
         {% endfor %}
     </div>
