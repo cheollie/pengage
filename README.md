@@ -30,7 +30,7 @@ Pengage was made using Django with SQLite for a database.
 - markdown support (coming soon)
 - themes (coming soon)
 - private leaderboard (coming soon)
-
+- partnership with local business for prizes (especially food - coming soon)
 
 ## installation
 Firstly, have python installed, make sure to install the requirements, prepare the database, and lastly, run the server.
