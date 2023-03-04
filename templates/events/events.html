@@ -10,21 +10,36 @@
     <p style="text-align: center;">filter, sort, and search to find the event for you!</p>
 </div>
 {% if events_list %}
-{% for event in events_list %}
-<div class="card" style="width: 18rem;">
-    <div class="card-body">
-        <h5 class="card-title">{{ event.event_title }}</h5>
-        <h6 class="card-subtitle mb-2 text-muted">{{ event.organizer }}</h6>
-        <!--<p class="card-text">{{ event.description|truncatechars:50 }}</p>-->
-        <i class="bi bi-geo-alt"></i><p class="card-text">{{ event.location }}</p>
-        <i class="bi bi-geo-alt"></i><p>{{ event.start_date }} @ {{ event.start_time }} - {{ event.end_date }} @ {{ event.end_time }}</p>
-        {% if user in event.interested.all %} <p class="card-text"></p>>interested!</p> {% endif %}
-        {% if user in event.participants.all %} <p class="card-text"></p>>participant!</p> {% endif %}
-        <p class="card-text"></p>>{{ event.points }}</p>
-        <a href="{% url 'events:full_event' event.id %}" class="card-link">View event</a>
+<div class="row gx-5">
+    {% for event in events_list %}
+    <div class="col-md-4 col-sm-6 event-card" style="">
+
+    <div class="card " style="">
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    <h5 class="card-title">{{ event.event_title }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ event.organizer }}</h6>
+                    <!--<p class="card-text">{{ event.description|truncatechars:50 }}</p>-->
+                    <span class="bi bi-geo-alt"> {{ event.location }}</span>
+                    <br>
+                    <span class="bi bi-calendar-event"> {{ event.start_date }} @ {{ event.start_time }} - {{ event.end_date }} @ {{ event.end_time }}</span>
+                    <div class="card-footer">{% if user in event.interested.all %} <p class="card-text"></p>>interested!</p> {% endif %}
+                    {% if user in event.participants.all %} <p class="card-text"></p>>participant!</p> {% endif %}</div>
+                    <a href="{% url 'events:full_event' event.id %}" class="card-link stretched-link">View event</a>
+                </div>
+                <div class="col points-blob text-center" style="max-width: 5rem;">
+                    <p class="points-num margin-bottom">{{ event.points }}</p>
+                    <p class="">points</p>
+                </div>
+            </div>
+
+        </div>
     </div>
 </div>
-{% endfor %}
+    {% endfor %}
+
+</div>
 {% else %}
 <p>No events found.</p>
 {% endif %}

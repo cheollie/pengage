@@ -6,39 +6,43 @@
     <h1 style="text-align: center; margin-bottom: 0%;">welcome back, {{ user.username }}!</h1>
     <p style="text-align: center;">filter, sort, and search to find the event for you!</p>
 </div>
-<div>
-    Quarterly Leaderboard Snippet:
-    <ul>
-        {% for user in quarterly_leaderboard %}
-        <li>{{ user.username }}: {{ user.points_quarterly }}</li>
-        {% endfor %}
-</div>
-
-<div>
-    Alltime Leaderboard Snippet:
-    <ul>
-        {% for user in alltime_leaderboard %}
-        <li>{{ user.username }}: {{ user.points_alltime }}</li>
-        {% endfor %}
-</div>
-
-
-<div>
-    <h2>upcoming events:</h2>
-    <div class="row">
-        {% for event in upcoming_events %}
-        <div class="col">
-            <a href="/events/{{ event.id }}">{{ event.event_title }}</a>
-        </div>
-        {% endfor %}
+<div class="row">
+    <div class="col">
+        Quarterly Leaderboard Snippet:
+        <ul>
+            {% for user in quarterly_leaderboard %}
+            <li>{{ user.username }}: {{ user.points_quarterly }}</li>
+            {% endfor %}
     </div>
-    <h2>explore events:</h2>
-    <div class="row">
-        {% for event in upcoming_interested %}
-        <div class="col">
-            <a href="/events/{{ event.id }}">{{ event.event_title }}</a>
+
+    <div class="col">
+        Alltime Leaderboard Snippet:
+        <ul>
+            {% for user in alltime_leaderboard %}
+            <li>{{ user.username }}: {{ user.points_alltime }}</li>
+            {% endfor %}
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <h2>upcoming events:</h2>
+        <div class="row">
+            {% for event in upcoming_events %}
+            <div class="col">
+                <a href="/events/{{ event.id }}">{{ event.event_title }}</a>
+            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
+    </div>
+    <div class="col">
+        <h2>explore events:</h2>
+        <div class="row">
+            {% for event in upcoming_interested %}
+            <div class="col">
+                <a href="/events/{{ event.id }}">{{ event.event_title }}</a>
+            </div>
+            {% endfor %}
+        </div>
     </div>
 </div>
 {% else %}
