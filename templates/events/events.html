@@ -7,7 +7,7 @@
 
 <div class="row" style="margin-top: 7%;  margin-bottom: 3%;">
     <h1 style="text-align: center; margin-bottom: 0%;">events</h1>
-    <p style="text-align: center;">filter, sort, and search to find the event for you!</p>
+    <p style="text-align: center;">These events are only the tip of the iceberg.</p>
 </div>
 {% if events_list %}
 <div class="row gx-5">
@@ -18,7 +18,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="col">
-                    <h6 class="card-subtitle mb-2 text-muted" style="background-color: {{event.colour}}">{{ event.status }}</h6>
+                    <h6 class="card-subtitle mb-2 text-muted badge" style="background-color: {{event.colour}}">{{ event.status }}</h6>
                     
                     <h5 class="card-title">{{ event.event_title }}</h5>
                     <h6 class="card-subtitle mb-2 text-muted">{{ event.organizer }}</h6>
