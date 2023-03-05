@@ -182,5 +182,17 @@ small{
 }
 
 a{
-    color: #886D56 !important;
+    color: #886D56;
+}
+a:hover{
+    color: #523911;
+}
+
+.lb-highlight{
+    border-width: 0.2rem;
+    background-color: #ffb53f7b;
+    font-weight:bold;
+}
+.lb-highlight:hover{
+    background-color: #ffb53fc0;
 }
