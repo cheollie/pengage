@@ -6,34 +6,42 @@ So dive right in. Join the flock and become a school spirit sensation with Penga
 ## about
 Pengage was made using Django with SQLite for a database. 
 
+## links
+[pitch](https://docs.google.com/presentation/d/1Nc6a9CO1Aj1EU6Mz8Gz6ZClQFrDZ2XJ5YG4dfSwtZNE/edit?usp=sharing), 
+[documentation](https://docs.google.com/document/d/1JW6pNKZsZqvjWx-2vuyOSG4unTPhoZtNSQzdP2LoL5g/edit?usp=sharing)
+
 ## features
 
 **main features:**
-- easy to keep track of and know what are the upcoming events
-- points/leaderboard system
-- cool attendance system for our events
+- events system to easily keep track of and be aware of upcoming events
+- points/leaderboard system for the competitive spirit
+- cool attendance system for our events 
 - incentivized with prizes and rewards
-- cool side quests/challenges/badges
+- motivating side quests/challenges/badges
 + and a cool dashboard having all of the above visible at a glance
 
 **minor features:**
 - events catered to you! - you are able to set interested tags, so events with the tags you added will be recommended to you on your dashboard
-- seamless attendance system - uses qr codes to easily scan attendees into events with just a staff member...
-- interest/rsvp system
-- private accounts
+- seamless attendance system - uses qr codes to easily scan attendees into events
+- interest/rsvp system - for organizers to gauge how many people will attend (serves as a sign up as well to display the qr-code)
+- private accounts - for user privacy
 - is a progressive web app - can work just like an app
-- event approval (coming soon)
-- proximity attendance system (coming soon)
-- filter, sort, search for events (coming soon)
-- notifs (coming soon)
-- referral (coming soon)
-- markdown support (coming soon)
-- themes (coming soon)
-- private leaderboard (coming soon)
-- partnership with local business for prizes (especially food - coming soon)
+
+**future features:**
+- event approval
+- proximity attendance system - using bluetooth
+- filter, sort, search for events 
+- calendar view for events 
+- notifs 
+- referral - to increase userbase
+- markdown support
+- themes 
+- private leaderboard
+- partnership with local business for prizes (especially food)
+- cute win screens - to increase chances to share on social media also increasing userbase
 
 ## installation
-Firstly, have python installed, make sure to install the requirements, prepare the database, and lastly, run the server.
+After cloning this repository, make sure you have Python installed. Then, install the requirements, prepare the database, and lastly, run the server.
 ```
 pip install -r requirements.txt
 python manage.py makemigrations
