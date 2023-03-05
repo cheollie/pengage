@@ -38,8 +38,9 @@
         <span>- {{tag}}</span>
         {% endfor %}
         {% if not event_started %}
+        <br><br>
         {% if not user.is_authenticated %}
-        Please log in to do interest
+        <p>Please log in to do interest.</p>
         {% else %}
         <form method="POST">
             {% csrf_token %}

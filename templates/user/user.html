@@ -6,56 +6,50 @@
 
 
 <div class="container body-content" style="">
-    <div class="row" style="margin-top: 7%;  margin-bottom: 3%;">
+    <div class="row" style="margin-bottom: 3%;">
         <h1 style="margin-bottom: 0%;">{{ show_user.first_name }} {{ show_user.last_name }}</h1>
-        <p style="">{{ show_user.username }} {{show_user.grade}} {% if is_self %} <a href="/profile/update/">edit</a> {% endif %} </p>
+        <p style="">{{ show_user.username }} | Gr. {{show_user.grade}} {% if is_self %} | <a href="/profile/update/">edit</a> {% endif %} </p>
         <br>
         <p>{{show_user.bio}}</p>
     </div>
     
-    <div>
-        Quarterly Overall: #{{quarterly_overall}}
-        <br>
-        Quarterly Grade: #{{quarterly_grade}}
-        <br>
-        Alltime Overall: #{{alltime_overall}}
-        <br>
-        Alltime Grade: #{{alltime_grade}}
-    </div>
+
     {% if not user.is_public %}
-    <div class="row" style="margin-bottom: 3%;">
+    <div class="row" style="padding: 2% 0; border-top: #FFB53F 0.5rem solid; ">
         <div class="col-md-6">
-            <h3>quarterly total points</h3>
-            <h3>alltime total points</h3>
-            {% if is_self %} <h3>total coins</h3> {% endif %}
+            <h4>quarterly total points</h4>
+            <h4>alltime total points</h4>
+            {% if is_self %} <h4>total coins</h4> {% endif %}
         </div>
         <div class="col-md-6">
-            <h3>{{user.points_quarterly}}</h3>
-            <h3>{{user.points_alltime}}</h3>
-            {% if is_self %} <h3>{{user.coins}}</h3> {% endif %}
+            <h4>{{user.points_quarterly}} (#{{quarterly_overall}} overall; #{{quarterly_grade}} in grade {{show_user.grade}})</h3>
+            <h4>{{user.points_alltime}} (#{{alltime_overall}} overall; #{{alltime_grade}} in grade {{show_user.grade}})</h3>
+            {% if is_self %} <h4>{{user.coins}}</h4> {% endif %}
         </div>
+        <hr style="margin-top: 1rem">
     </div>
-    <hr>
     <div>
-        Interested Tags:
+        <b>Interested Tags:</b>
         {% for tag in show_user.tags_interested.all %}
-        <span>{{tag}}</span>
+        <span class="badge">{{tag}}</span>
         {% endfor %}
     </div>
     <div>
-        Events Interested:
+        <b>Events Interested:</b>
         {% for event in show_user.events_interested.all %}
-        <span>{{event}}</span>
+        <a href="{% url 'events:full_event' event.id %}" class="card-link">{{event}}</a>
+
         {% endfor %}
     </div>
     <div>
-        Events Participated:
+        <b>Events Participated:</b>
         {% for event in show_user.events_participated.all %}
-        <span>{{event}}</span>
+        <a href="{% url 'events:full_event' event.id %}" class="card-link">{{event}}</a>
+
         {% endfor %}
     </div>
     <div>
-        Prizes Redeemed:
+        <b>Prizes Redeemed:</b>
         {% for prize in show_user.prizes_redeemed.all %}
         <span>{{prize}}</span>
         {% endfor %}

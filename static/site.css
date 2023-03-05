@@ -169,3 +169,18 @@ small{
 .smaller{
     font-size: 1rem;
 }
+.qr{
+    height: auto; 
+    width: auto; 
+    max-width: 300px; 
+    max-height: 300px;
+}
+
+.light-btn{
+    background-color: #886D56;
+    color:#FFFFFF;
+}
+
+a{
+    color: #886D56 !important;
+}

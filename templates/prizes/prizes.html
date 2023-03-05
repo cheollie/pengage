@@ -28,10 +28,10 @@
                 {% elif prize in collected %}
                 Bought Already
                 {% else %}
-                <div>
+                <div style="margin-top: 5%;">
                     <form action="{{prize.id}}/" method="post">
                         {% csrf_token %}
-                        <input type="submit" value="Buy" />
+                        <input type="submit" class="light-btn btn" value="Buy" />
                     </form>
                 </div>
                 {% endif %}

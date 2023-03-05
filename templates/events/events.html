@@ -26,8 +26,8 @@
                     <span class="bi bi-geo-alt"> {{ event.location }}</span>
                     <br>
                     <span class="bi bi-calendar-event"> {{ event.start_date }} @ {{ event.start_time }} - {{ event.end_date }} @ {{ event.end_time }}</span>
-                    <div class="card-footer">{% if user in event.interested.all %} <p class="card-text"></p>>interested!</p> {% endif %}
-                    {% if user in event.participants.all %} <p class="card-text"></p>>participant!</p> {% endif %}</div>
+                    <div class="card-footer">{% if user in event.interested.all %} <p class="card-text"></p>interested!</p> {% endif %}
+                    {% if user in event.participants.all %} <p class="card-text"></p>participant!</p> {% endif %}</div>
                     <a href="{% url 'events:full_event' event.id %}" class="card-link stretched-link">View event</a>
                 </div>
                 <div class="col points-blob text-center" style="max-width: 5rem;">
