@@ -6,29 +6,29 @@
     <h1 style="text-align: center; margin-bottom: 0%;">welcome back, {{ user.username }}!</h1>
 </div>
 <div class="row">
-<div class="col">
-    Past Winners:
-    <ul>
-        {% for user in past_winners %}
-        <li>{{ user.username }}, won a {{user.past_prize}}</li>
-        {% endfor %}
-</div>
+    <div class="col">
+        Past Winners:
+        <ul>
+            {% for user in past_winners %}
+            <li>{{ user.username }}, won a {{user.past_prize}}</li>
+            {% endfor %}
+    </div>
 
-<div class="col">
-    Quarterly Leaderboard Snippet:
-    <ul>
-        {% for user in quarterly_leaderboard %}
-        <li>{{ user.username }}: {{ user.points_quarterly }}</li>
-        {% endfor %}
-</div>
+    <div class="col">
+        Quarterly Leaderboard Snippet:
+        <ul>
+            {% for user in quarterly_leaderboard %}
+            <li>{{ user.username }}: {{ user.points_quarterly }}</li>
+            {% endfor %}
+    </div>
 
-<div class="col">
-    Alltime Leaderboard Snippet:
-    <ul>
-        {% for user in alltime_leaderboard %}
-        <li>{{ user.username }}: {{ user.points_alltime }}</li>
-        {% endfor %}
-</div>
+    <div class="col">
+        Alltime Leaderboard Snippet:
+        <ul>
+            {% for user in alltime_leaderboard %}
+            <li>{{ user.username }}: {{ user.points_alltime }}</li>
+            {% endfor %}
+    </div>
 </div>
 <div class="row">
     <div class="col">
@@ -53,11 +53,25 @@
     </div>
 </div>
 {% else %}
-<div class="row" style="margin-top: 7%;  margin-bottom: 3%;">
-    <h1 style="text-align: center; margin-bottom: 0%;">pengage</h1> <!-- extra big-->
-    <p style="text-align: center;">cute splash screen blurb here</p>
-</div>
-<p>You are not logged in. <a href="/login">Login</a> or <a href="/register">make an account</a>.</p>
-{% endif %}
+<div style="height: 80vh;">
+<div class="container align-items-center" style=" max-width: 60rem; vertical-align: middle;">
 
-{% endblock %}
+    <div class="row" style="margin-bottom: 3%;" class="">
+        <h1 style="text-align: center; margin-bottom: 2%;">pengage</h1> <!-- extra big-->
+        <p style="text-align: center;">Waddle you do to boost your school spirit? Look no further than
+            Pengage, the quintessential tool for student involvement! With intuitive event promotion tools and a
+            seamless attendance system, organizing and participating in school events has never been easier - and more
+            fun!</p>
+    </div>
+    <div class="row">
+    <a href="/register" class="btn btn-primary text-center" style="background:rgba(126, 139, 77, 1);border-color: rgba(126, 139, 77, 1); padding: 0.6rem 2rem; border-radius:1.5rem;">get
+        started</a>
+
+    <p class="text-center smaller" style="margin-top:1%">already apart of the flock? <a class="colored-link"
+            style="text-decoration: none;" href="/login">login</a>! </p>
+        </div>
+</div>
+</div>
+    {% endif %}
+
+    {% endblock %}

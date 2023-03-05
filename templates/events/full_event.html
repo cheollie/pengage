@@ -37,35 +37,40 @@
         {% for tag in event.tags.all %}
         <span>- {{tag}}</span>
         {% endfor %}
-        {% if not organizer and not event_started %}
+        {% if not event_started %}
         {% if not user.is_authenticated %}
         Please log in to do interest
+        {% else %}
         <form method="POST">
             {% csrf_token %}
-            <button type="submit" class="btn-block btn btn-primary"
-                style="background:rgba(126, 139, 77, 1);border-color: rgba(126, 139, 77, 1); border-radius:3rem; margin-top:1%">
-                {% elif user in event.interested.all %}Remove interest{% else %}Add interest{% endif %}</button>
+            <button type="submit" class="btn-block btn btn-primary" style="background:rgba(126, 139, 77, 1);border-color: rgba(126, 139, 77, 1); border-radius:3rem; margin-top:1%" >
+                {% if user in event.interested.all %}
+                    Remove interest
+                {% else %}
+                    Add interest
+                {% endif %}
+            </button>
         </form>
         {% endif %}
-
+        {% endif %}
         {% if manager %}
-        {% if event_started and not event_ended %}
-        <a href="/events/{{event.id}}/admit">
-            <button type="submit" class="btn-block btn btn-primary"
-                style="background:rgba(126, 139, 77, 1);border-color: rgba(126, 139, 77, 1); border-radius:3rem; margin-top:1%">admit</button>
-        </a>
-        {% elif event_ended %}
-        {% if not event.points_propagated %}
-        <a href="/events/{{event.id}}/propagate">
-            <button type="submit" class="btn-block btn btn-primary"
-                style="background:rgba(126, 139, 77, 1);border-color: rgba(126, 139, 77, 1); border-radius:3rem; margin-top:1%">Propogate
-                Points</button>
-        </a>
-        {% else %}
-        <p> </p>
-        <p>Points have been propagated.</p>
-        {% endif %}
-        {% endif %}
+            {% if event_started and not event_ended %}
+            <a href="/events/{{event.id}}/admit">
+                <button type="submit" class="btn-block btn btn-primary"
+                    style="background:rgba(126, 139, 77, 1);border-color: rgba(126, 139, 77, 1); border-radius:3rem; margin-top:1%">admit</button>
+            </a>
+            {% elif event_ended %}
+                {% if not event.points_propagated %}
+                <a href="/events/{{event.id}}/propagate">
+                    <button type="submit" class="btn-block btn btn-primary"
+                        style="background:rgba(126, 139, 77, 1);border-color: rgba(126, 139, 77, 1); border-radius:3rem; margin-top:1%">Propogate
+                        Points</button>
+                </a>
+                {% else %}
+                <p> </p>
+                <p>Points have been propagated.</p>
+                {% endif %}
+            {% endif %}
         {% endif %}
     </div>
 </div>
