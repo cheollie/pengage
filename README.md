@@ -27,19 +27,6 @@ Pengage was made using Django with SQLite for a database.
 - private accounts - for user privacy
 - is a progressive web app - can work just like an app
 
-**future features:**
-- event approval
-- proximity attendance system - using bluetooth
-- filter, sort, search for events 
-- calendar view for events 
-- notifs 
-- referral - to increase userbase
-- markdown support
-- themes 
-- private leaderboard
-- partnership with local business for prizes (especially food)
-- cute win screens - to increase chances to share on social media also increasing userbase
-
 ## installation
 After cloning this repository, make sure you have Python installed. Then, install the requirements, prepare the database, and lastly, run the server.
 ```
