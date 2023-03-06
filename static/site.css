@@ -110,22 +110,28 @@ h1 {
 }
 
 .vertical-center {
-    min-height: 100%;
+    min-height: 80%;
     /* Fallback for browsers do NOT support vh unit */
-    min-height: 100vh;
+    min-height: 80vh;
     /* These two lines are counted as one :-)       */
 
     display: flex;
     align-items: center;
 }
 
+
+.vertical-center-smol {
+
+    display: flex;
+    align-items: center;
+}
+
 .points-blob{
-    background-color: white;
-    border-radius: 0.2rem;
+    background-color: #ffb53f97;
+    border-radius: 0.4rem;
 }
 
 .event-card{
-    background-color: #FFE7C1;
     border-radius: 0.5rem;
 }
 

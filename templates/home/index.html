@@ -16,62 +16,124 @@
 
     <div class="col">
         Quarterly Leaderboard Snippet:
-        <ul>
-            {% for user in quarterly_leaderboard %}
-            <li>{{ user.username }}: {{ user.points_quarterly }}</li>
+        <ol>
+            {% for usr in quarterly_leaderboard %}
+            {% if user.username == usr.username %} <b> {% endif %}
+                <li>{{ usr.username }}: {{ usr.points_quarterly }}</li>
+                {% if user.username == usr.username %}
+            </b> {% endif %}
             {% endfor %}
     </div>
 
     <div class="col">
         Alltime Leaderboard Snippet:
-        <ul>
-            {% for user in alltime_leaderboard %}
-            <li>{{ user.username }}: {{ user.points_alltime }}</li>
+        <ol>
+            {% for usr in alltime_leaderboard %}
+            {% if user.username == usr.username %} <b> {% endif %}
+                <li>{{ usr.username }}: {{ usr.points_alltime }}</li>
+                {% if user.username == usr.username %}
+            </b> {% endif %}
             {% endfor %}
+        </ol>
     </div>
 </div>
-<div class="row">
-    <div class="col">
-        <h2>upcoming events:</h2>
-        <div class="row">
-            {% for event in upcoming_events %}
-            <div class="col">
-                <a href="/events/{{ event.id }}">{{ event.event_title }}</a>
+<div class="row" style="margin-bottom: 1.5rem">
+    <h2>upcoming events:</h2>
+    <div class="row gx-5">
+        {% if upcoming_events %} 
+        {% for event in upcoming_events %}
+        <div class="col-md-4 col-sm-2 event-card card">
+    
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <h6 class="card-subtitle mb-2 text-muted badge" style="background-color: {{event.colour}}">{{event.status }}</h6>
+    
+                        <h5 class="card-title">{{ event.event_title }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ event.organizer }}</h6>
+                        <!--<p class="card-text">{{ event.description|truncatechars:50 }}</p>-->
+                        <span class="bi bi-geo-alt"> {{ event.location }}</span>
+                        <br>
+                        <span class="bi bi-calendar-event"> {{ event.start_date }} @ {{ event.start_time }} - {{event.end_date }} @ {{ event.end_time }}</span>
+                        <div class="card-footer">{% if user in event.interested.all %} <p class="card-text"></p>interested!</p> {% endif %}
+                            {% if user in event.participants.all %} <p class="card-text"></p>participant!</p> {% endif %}
+                        </div>
+                        <a href="{% url 'events:full_event' event.id %}" class="card-link stretched-link">View event</a>
+                    </div>
+                    <div class="col points-blob text-center vertical-center-smol" style="max-width: 5rem;">
+                        <div class="">
+                        <p class="points-num align-middle" style=" margin-bottom: 0">{{ event.points }}</p>
+                        <p class="">points</p>
+                        </div>
+                    </div>
+                </div>
+    
             </div>
-            {% endfor %}
+        </div>
+        {% endfor %}
+        {% else %}
+        <p>No upcoming events. :( *sad penguin noises*</p>
+        {% endif %}
+    </div>
+</div>
+<div class="row gx-5" style="margin-bottom: 1.5rem">
+    <h2>explore events:</h2>
+    {% if upcoming_interested %}
+    {% for event in upcoming_interested  %}
+    <div class="col-md-4 col-sm-2 event-card card">
+
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    <h6 class="card-subtitle mb-2 text-muted badge" style="background-color: {{event.colour}}">{{event.status }}</h6>
+
+                    <h5 class="card-title">{{ event.event_title }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ event.organizer }}</h6>
+                    <!--<p class="card-text">{{ event.description|truncatechars:50 }}</p>-->
+                    <span class="bi bi-geo-alt"> {{ event.location }}</span>
+                    <br>
+                    <span class="bi bi-calendar-event"> {{ event.start_date }} @ {{ event.start_time }} - {{event.end_date }} @ {{ event.end_time }}</span>
+                    <div class="card-footer">{% if user in event.interested.all %} <p class="card-text"></p>interested!</p> {% endif %}
+                        {% if user in event.participants.all %} <p class="card-text"></p>participant!</p> {% endif %}
+                    </div>
+                    <a href="{% url 'events:full_event' event.id %}" class="card-link stretched-link">View event</a>
+                </div>
+                <div class="col points-blob text-center vertical-center-smol" style="max-width: 5rem;">
+                    <div class="">
+                    <p class="points-num align-middle" style=" margin-bottom: 0">{{ event.points }}</p>
+                    <p class="">points</p>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
-    <div class="col">
-        <h2>explore events:</h2>
-        <div class="row">
-            {% for event in upcoming_interested %}
-            <div class="col">
-                <a href="/events/{{ event.id }}">{{ event.event_title }}</a>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
+    {% endfor %}
+    {% else %}
+    <p>No upcoming events for you. Add interested tags in your profile <a href="/profile/update">here</a>!</p>
+    {% endif %}
 </div>
 {% else %}
-<div style="height: 80vh;">
-<div class="container align-items-center" style=" max-width: 60rem; vertical-align: middle;">
+<div style="height:80vh" class="vertical-center">
+    <div class="container align-items-center" style=" max-width: 60rem; vertical-align: middle;">
 
-    <div class="row" style="margin-bottom: 3%;" class="">
-        <h1 style="text-align: center; margin-bottom: 2%;">pengage</h1> <!-- extra big-->
-        <p style="text-align: center;">Waddle you do to boost your school spirit? Look no further than
-            Pengage, the quintessential tool for student involvement! With intuitive event promotion tools and a
-            seamless attendance system, organizing and participating in school events has never been easier - and more
-            fun!</p>
-    </div>
-    <div class="row">
-    <a href="/register" class="btn btn-primary text-center" style="background:rgba(126, 139, 77, 1);border-color: rgba(126, 139, 77, 1); padding: 0.6rem 2rem; border-radius:1.5rem;">get
-        started</a>
-
-    <p class="text-center smaller" style="margin-top:1%">already apart of the flock? <a class="colored-link"
-            style="text-decoration: none;" href="/login">login</a>! </p>
+        <div class="row" style="margin-bottom: 2%;" class="">
+            <h1 style="text-align: center; margin-bottom: 2%;">pengage</h1> <!-- extra big-->
+            <p style="text-align: center;">Waddle you do to boost your school spirit? Look no further than
+                Pengage, the quintessential tool for student involvement! With intuitive event promotion tools and a
+                seamless attendance system, organizing and participating in school events has never been easier - and
+                more
+                fun!</p>
         </div>
-</div>
-</div>
-    {% endif %}
+        <div class="row">
+            <a href="/register" class="btn btn-primary text-center" style="  background:rgba(126, 139, 77, 1);border-color: rgba(126, 139, 77, 1); padding: 0.6rem 2rem; border-radius:1.5rem;">get
+                started</a>
 
-    {% endblock %}
+            <p class="text-center smaller" style="margin-top:1%">already apart of the flock? <a class="colored-link"
+                    style="text-decoration: none;" href="/login">login</a>! </p>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}

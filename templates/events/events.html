@@ -12,33 +12,34 @@
 {% if events_list %}
 <div class="row gx-5">
     {% for event in events_list %}
-    <div class="col-md-4 col-sm-6 event-card" style="">
+    <div class="col-md-4 col-sm-2 event-card card">
 
-    <div class="card " style="">
         <div class="card-body">
             <div class="row">
                 <div class="col">
-                    <h6 class="card-subtitle mb-2 text-muted badge" style="background-color: {{event.colour}}">{{ event.status }}</h6>
-                    
+                    <h6 class="card-subtitle mb-2 text-muted badge" style="background-color: {{event.colour}}">{{event.status }}</h6>
+
                     <h5 class="card-title">{{ event.event_title }}</h5>
                     <h6 class="card-subtitle mb-2 text-muted">{{ event.organizer }}</h6>
                     <!--<p class="card-text">{{ event.description|truncatechars:50 }}</p>-->
                     <span class="bi bi-geo-alt"> {{ event.location }}</span>
                     <br>
-                    <span class="bi bi-calendar-event"> {{ event.start_date }} @ {{ event.start_time }} - {{ event.end_date }} @ {{ event.end_time }}</span>
+                    <span class="bi bi-calendar-event"> {{ event.start_date }} @ {{ event.start_time }} - {{event.end_date }} @ {{ event.end_time }}</span>
                     <div class="card-footer">{% if user in event.interested.all %} <p class="card-text"></p>interested!</p> {% endif %}
-                    {% if user in event.participants.all %} <p class="card-text"></p>participant!</p> {% endif %}</div>
+                        {% if user in event.participants.all %} <p class="card-text"></p>participant!</p> {% endif %}
+                    </div>
                     <a href="{% url 'events:full_event' event.id %}" class="card-link stretched-link">View event</a>
                 </div>
-                <div class="col points-blob text-center" style="max-width: 5rem;">
-                    <p class="points-num margin-bottom">{{ event.points }}</p>
+                <div class="col points-blob text-center vertical-center-smol" style="max-width: 5rem;">
+                    <div class="">
+                    <p class="points-num align-middle" style=" margin-bottom: 0">{{ event.points }}</p>
                     <p class="">points</p>
+                    </div>
                 </div>
             </div>
 
         </div>
     </div>
-</div>
     {% endfor %}
 
 </div>
