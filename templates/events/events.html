@@ -19,7 +19,7 @@
                 <div class="col">
                     <h6 class="card-subtitle mb-2 text-muted badge" style="background-color: {{event.colour}}">{{event.status }}</h6>
 
-                    <h5 class="card-title">{{ event.event_title }}</h5>
+                    <a href="{% url 'events:full_event' event.id %}" class="card-title stretched-link" style="text-decoration: none; color:#523911"><h5>{{ event.event_title }}</h5></a>
                     <h6 class="card-subtitle mb-2 text-muted">{{ event.organizer }}</h6>
                     <!--<p class="card-text">{{ event.description|truncatechars:50 }}</p>-->
                     <span class="bi bi-geo-alt"> {{ event.location }}</span>
@@ -28,7 +28,6 @@
                     <div class="card-footer">{% if user in event.interested.all %} <p class="card-text"></p>interested!</p> {% endif %}
                         {% if user in event.participants.all %} <p class="card-text"></p>participant!</p> {% endif %}
                     </div>
-                    <a href="{% url 'events:full_event' event.id %}" class="card-link stretched-link">View event</a>
                 </div>
                 <div class="col points-blob text-center vertical-center-smol" style="max-width: 5rem;">
                     <div class="">
