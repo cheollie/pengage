@@ -29,7 +29,7 @@ Pengage was made using Django with SQLite for a database.
 
 ## installation
 After cloning this repository, make sure you have Python installed. Then, install the requirements, prepare the database, and lastly, run the server.
-```
+```bash
 pip install -r requirements.txt
 python manage.py makemigrations
 python manage.py migrate
